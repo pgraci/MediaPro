@@ -230,35 +230,35 @@ function mp3_to_post($limit = 'all', $folderPath) {
         }
 
         // move the file to the right month/date directory in wordpress
-        $wpFileInfo = wp_upload_bits(basename($filePath), null, file_get_contents($filePath));
+        //$wpFileInfo = wp_upload_bits(basename($filePath), null, file_get_contents($filePath));
         // if moved correctly delete the original
-        if (empty($wpFileInfo['error'])) {
-          unlink($filePath);
-        }
+        //if (empty($wpFileInfo['error'])) {
+        //  unlink($filePath);
+        //}
 
         // add the mp3 file to the post as an attachment
-        $wp_filetype = wp_check_filetype(basename($wpFileInfo['file']), null);
-        $attachment = array(
-          'post_mime_type' => $wp_filetype['type'],
-          'post_title' => preg_replace('/\.[^.]+$/', '', basename($wpFileInfo['file'])),
-          'post_content' => '',
-          'post_status' => 'inherit'
-        );
-        $attach_id = wp_insert_attachment($attachment, $wpFileInfo['file'], $postID);
+        //$wp_filetype = wp_check_filetype(basename($wpFileInfo['file']), null);
+        //$attachment = array(
+        //  'post_mime_type' => $wp_filetype['type'],
+        //  'post_title' => preg_replace('/\.[^.]+$/', '', basename($wpFileInfo['file'])),
+        //  'post_content' => '',
+        //  'post_status' => 'inherit'
+        //);
+        //$attach_id = wp_insert_attachment($attachment, $wpFileInfo['file'], $postID);
 
         // you must first include the image.php file
         // for the function wp_generate_attachment_metadata() to work
-        require_once(ABSPATH . 'wp-admin/includes/image.php');
-        $attach_data = wp_generate_attachment_metadata($attach_id, $wpFileInfo['file']);
-        wp_update_attachment_metadata($attach_id, $attach_data);
+        //require_once(ABSPATH . 'wp-admin/includes/image.php');
+        //$attach_data = wp_generate_attachment_metadata($attach_id, $wpFileInfo['file']);
+        //wp_update_attachment_metadata($attach_id, $attach_data);
 
         // add the link to the attachment to the post
-        $attachmentLink = wp_get_attachment_link($attach_id, 'thumbnail', FALSE, FALSE, 'Download file');
-        $updatePost = get_post($postID);
-        $updated_post = array();
-        $updated_post['ID'] = $postID;
-        $updated_post['post_content'] = $updatePost->post_content . '<p>' . $attachmentLink . '</p>';
-        wp_update_post($updated_post);
+        //$attachmentLink = wp_get_attachment_link($attach_id, 'thumbnail', FALSE, FALSE, 'Download file');
+        //$updatePost = get_post($postID);
+        //$updated_post = array();
+        //$updated_post['ID'] = $postID;
+        //$updated_post['post_content'] = $updatePost->post_content . '<p>' . $attachmentLink . '</p>';
+        //wp_update_post($updated_post);
 
         //
         array_push($messages, _e('Post created:', 'mp3-to-post') . ' ' . $title);
