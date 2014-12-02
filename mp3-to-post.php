@@ -1,11 +1,13 @@
 <?php
+
+
 /*
-  Plugin Name: MP3 to Post
-  Plugin URI: http://www.fractured-state.com/2011/09/mp3-to-post-plugin/
-  Description: Creates posts using ID3 information in MP3 files.
-  Author: Paul Sheldrake
+  Plugin Name: Audio to Song Post
+  Plugin URI: http://www.triagency.com/MAKEAURL/
+  Description: Creates posts using ID3 information in audio file from Media Library.
+  Author: Phil Graci
   Version: 1.2.3
-  Author URI: http://www.fractured-state.com
+  Author URI: http://www.triagency.com
  */
 
 
@@ -13,7 +15,7 @@
  * Variables, store them in the options array to grab as necessary
  */
 $uploadsDetails = wp_upload_dir();
-$mp3FolderName = 'mp3-to-post';
+$mp3FolderName = 'audio-to-song-post';
 $folderPath = $uploadsDetails['basedir'] . '/' . $mp3FolderName;
 $base_path = parse_url($uploadsDetails['baseurl'], PHP_URL_PATH);
 
@@ -23,12 +25,12 @@ $mp3ToPostOptions = array(
   'folder_path' => $folderPath,
   'base_url_path' => $base_path,
 );
-update_option('mp3-to-post', serialize($mp3ToPostOptions));
+update_option('audio-to-song-post', serialize($mp3ToPostOptions));
 
 
 /* create the menu item and link to to an admin function */
 function mp3_admin_actions() {
-  add_options_page(__('MP3 to Post','mp3-to-post'), __('MP3 to Post','mp3-to-post'), 1, "mp3-to-post", "mp3_admin");
+  add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "mp3_admin");
 }
 
 /* add the menu item */
@@ -41,25 +43,25 @@ add_action('admin_menu', 'mp3_admin_actions');
 function mp3_admin() {
   /**
    * Add the ID3 library.  Adding it here so it's only used as needed
-   * http://wordpress.org/support/topic/plugin-blubrry-powerpress-podcasting-plugin-conflict-with-mp3-to-post-plugin?replies=1#post-2833002
+   * http://wordpress.org/support/topic/plugin-blubrry-powerpress-podcasting-plugin-conflict-with-audio-to-song-post-plugin?replies=1#post-2833002
    */
   require_once('getid3/getid3.php');
 
   ?>
   <div class="wrap">
-    <h2>MP3 to Post</h2>
+    <h2>Audio to Song Post</h2>
     <?php
     // load our variables in to an array
-    $mp3ToPostOptions = unserialize(get_option('mp3-to-post'));
+    $mp3ToPostOptions = unserialize(get_option('audio-to-song-post'));
     ?>
-    <p><?php _e('This plugin will scan for MP3 files in the directory below and then add them as posts.  It takes the ID3v2 title and comment and sets it as the post title and content respectively.  It also takes the file and attaches it to the post and adds a link to the post content.','mp3-to-post'); ?></p>
-    <p><?php _e('The way the ID3 information is processed, <strong>the file needs to have the title and comment set in v1 and v2</strong>','mp3-to-post'); ?></p>
-    <p><?php _e('If the genre is set on the file, that will be turned in to the category. If more than one genre is set in the ID3 information MP3 to Post only takes the first one.  If the genre is not set the category on the post is set to the default option.','mp3-to-post'); ?></p>
+    <p><?php _e('This plugin will allow you to select songs in the Media Library, and turn them into Song type posts.  It takes the ID3v2 title and sets it as the post title.  Comments are converted into Tags if option is checked.  Grouping field is converted into SubGenre(s) or Subcategories depending on your needs.  The MP3 artwork will be set as the featured image for the post.','audio-to-song-post'); ?></p>
+    <p><?php _e('The way the ID3 information is processed, <strong>the file needs to have the title and comment set in v1 and v2???? RESEARCH AND MODIFY IF POSSIBLE</strong>','audio-to-song-post'); ?></p>
+    <p><?php _e('If the genre is set on the file, that will be turned in to the category. If more than one genre is set in the ID3 information Audio to Song Post only takes the first one.  If the genre is not set the category on the post is set to the default option.','audio-to-song-post'); ?></p>
 
 
     <form method="post" action="">
-      <input type="submit" class="button-primary" name="create-all-posts" value="<?php _e('Create All Posts','mp3-to-post') ?>" />
-      <input type="submit" class="button-primary" name="create-first-post" value="<?php _e('Create 1st Post','mp3-to-post') ?>" />
+      <input type="submit" class="button-primary" name="create-all-posts" value="<?php _e('Create All Posts','audio-to-song-post') ?>" />
+      <input type="submit" class="button-primary" name="create-first-post" value="<?php _e('Create 1st Post','audio-to-song-post') ?>" />
     </form>
     <?php
     // create some posts already!
@@ -76,7 +78,7 @@ function mp3_admin() {
     // end POST check
     ?>
     <hr />
-    <h3><?php _e('Old code was here that showed files listed. Removed since we will not be scanning a directory','mp3-to-post'); ?></h3>
+    <h3><?php _e('Old code was here that showed files listed. Removed since we will not be scanning a directory','audio-to-song-post'); ?></h3>
 
   </div>
 <?php
@@ -138,7 +140,7 @@ function mp3_to_post($limit = 'all', $folderPath) {
 
   // check of there are files to process
   if(count($mp3Files) == 0){
-    array_push($messages, _e('There are no files to process', 'mp3-to-post'));
+    array_push($messages, _e('There are no files to process', 'audio-to-song-post'));
     return $messages;
   }
 
@@ -209,12 +211,12 @@ function mp3_to_post($limit = 'all', $folderPath) {
         }
 
 
-        array_push($messages, _e('Post created:', 'mp3-to-post') . ' ' . $title);
+        array_push($messages, _e('Post created:', 'audio-to-song-post') . ' ' . $title);
       } else {
-        array_push($messages, _e('Post already exists:', 'mp3-to-post') . ' ' . $title);
+        array_push($messages, _e('Post already exists:', 'audio-to-song-post') . ' ' . $title);
       }
     } else {
-      array_push($messages, _e('Either the title or comments are not set in the ID3 information.   Make sure they are both set for v1 and v2.', 'mp3-to-post'));
+      array_push($messages, _e('Either the title or comments are not set in the ID3 information.   Make sure they are both set for v1 and v2.', 'audio-to-song-post'));
     }
     $i++;
   endwhile; //
