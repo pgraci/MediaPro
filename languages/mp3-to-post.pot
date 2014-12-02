@@ -1,0 +1,105 @@
+# Copyright (C) 2014 MP3 to Post
+# This file is distributed under the same license as the MP3 to Post package.
+msgid ""
+msgstr ""
+"Project-Id-Version: MP3 to Post 1.1.0\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/mp3-to-post\n"
+"POT-Creation-Date: 2014-10-28 00:30:21+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-10-27 17:32-0800\n"
+"Last-Translator: Paul <paul.sheldrake@gmail.com>\n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.6.10\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en\n"
+
+#. Plugin Name of the plugin/theme
+#: mp3-to-post.php:31
+msgid "MP3 to Post"
+msgstr ""
+
+#: mp3-to-post.php:55
+msgid ""
+"This plugin will scan for MP3 files in the directory below and then add them "
+"as posts.  It takes the ID3v2 title and comment and sets it as the post "
+"title and content respectively.  It also takes the file and attaches it to "
+"the post and adds a link to the post content."
+msgstr ""
+
+#: mp3-to-post.php:56
+msgid ""
+"The way the ID3 information is processed, <strong>the file needs to have the "
+"title and comment set in v1 and v2</strong>"
+msgstr ""
+
+#: mp3-to-post.php:57
+msgid ""
+"If the genre is set on the file, that will be turned in to the category. If "
+"more than one genre is set in the ID3 information MP3 to Post only takes the "
+"first one.  If the genre is not set the category on the post is set to the "
+"default option."
+msgstr ""
+
+#: mp3-to-post.php:59
+msgid "Upload your files here:"
+msgstr ""
+
+#: mp3-to-post.php:63
+msgid "Create All Posts"
+msgstr ""
+
+#: mp3-to-post.php:64
+msgid "Create 1st Post"
+msgstr ""
+
+#: mp3-to-post.php:81
+msgid "Files listed in the order they will be added"
+msgstr ""
+
+#: mp3-to-post.php:93
+msgid "Title:"
+msgstr ""
+
+#: mp3-to-post.php:94
+msgid "Category:"
+msgstr ""
+
+#: mp3-to-post.php:95
+msgid "Comment:"
+msgstr ""
+
+#: mp3-to-post.php:162
+msgid "There are no files to process"
+msgstr ""
+
+#: mp3-to-post.php:261
+msgid "Post created:"
+msgstr ""
+
+#: mp3-to-post.php:263
+msgid "Post already exists:"
+msgstr ""
+
+#: mp3-to-post.php:266
+msgid ""
+"Either the title or comments are not set in the ID3 information.   Make sure "
+"they are both set for v1 and v2."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.fractured-state.com/2011/09/mp3-to-post-plugin/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Creates posts using ID3 information in MP3 files."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Paul Sheldrake"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://www.fractured-state.com"
+msgstr ""
