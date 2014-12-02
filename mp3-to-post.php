@@ -55,10 +55,8 @@ function mp3_admin() {
     <p><?php _e('This plugin will scan for MP3 files in the directory below and then add them as posts.  It takes the ID3v2 title and comment and sets it as the post title and content respectively.  It also takes the file and attaches it to the post and adds a link to the post content.','mp3-to-post'); ?></p>
     <p><?php _e('The way the ID3 information is processed, <strong>the file needs to have the title and comment set in v1 and v2</strong>','mp3-to-post'); ?></p>
     <p><?php _e('If the genre is set on the file, that will be turned in to the category. If more than one genre is set in the ID3 information MP3 to Post only takes the first one.  If the genre is not set the category on the post is set to the default option.','mp3-to-post'); ?></p>
-    <?php create_folder($mp3ToPostOptions['folder_path']); ?>
-    <p><?php _e('Upload your files here:','mp3-to-post'); ?>
-      <?php echo $mp3ToPostOptions['base_url_path'] . '/' .
-        $mp3ToPostOptions['folder_name']; ?> </p>
+
+
     <form method="post" action="">
       <input type="submit" class="button-primary" name="create-all-posts" value="<?php _e('Create All Posts','mp3-to-post') ?>" />
       <input type="submit" class="button-primary" name="create-first-post" value="<?php _e('Create 1st Post','mp3-to-post') ?>" />
@@ -78,26 +76,7 @@ function mp3_admin() {
     // end POST check
     ?>
     <hr />
-    <h3><?php _e('Files listed in the order they will be added','mp3-to-post'); ?></h3>
-    <ol>
-      <?php
-      // get files
-      $mp3Files = mp3_array($mp3ToPostOptions['folder_path']);
-      // list files and details
-      foreach ($mp3Files as $file) {
-        $filePath = $mp3ToPostOptions['folder_path'].'/'.$file;
-        $id3Details = get_ID3($filePath);
-        echo '<li>
-          <strong>' . $file . '</strong>
-            <ul>
-              <li><strong>' . _e('Title:', 'mp3-to-post') . '</strong> '.$id3Details['title'].'</li>
-              <li><strong>' . _e('Category:', 'mp3-to-post') . '</strong> '.$id3Details['category'].'</li>
-              <li><strong>' . _e('Comment:', 'mp3-to-post') . '</strong> '.$id3Details['comment'].'</li>
-            </ul>
-        </li>';
-      }
-      ?>
-    </ol>
+    <h3><?php _e('Old code was here that showed files listed. Removed since we will not be scanning a directory','mp3-to-post'); ?></h3>
 
   </div>
 <?php
@@ -229,38 +208,7 @@ function mp3_to_post($limit = 'all', $folderPath) {
           }
         }
 
-        // move the file to the right month/date directory in wordpress
-        //$wpFileInfo = wp_upload_bits(basename($filePath), null, file_get_contents($filePath));
-        // if moved correctly delete the original
-        //if (empty($wpFileInfo['error'])) {
-        //  unlink($filePath);
-        //}
 
-        // add the mp3 file to the post as an attachment
-        //$wp_filetype = wp_check_filetype(basename($wpFileInfo['file']), null);
-        //$attachment = array(
-        //  'post_mime_type' => $wp_filetype['type'],
-        //  'post_title' => preg_replace('/\.[^.]+$/', '', basename($wpFileInfo['file'])),
-        //  'post_content' => '',
-        //  'post_status' => 'inherit'
-        //);
-        //$attach_id = wp_insert_attachment($attachment, $wpFileInfo['file'], $postID);
-
-        // you must first include the image.php file
-        // for the function wp_generate_attachment_metadata() to work
-        //require_once(ABSPATH . 'wp-admin/includes/image.php');
-        //$attach_data = wp_generate_attachment_metadata($attach_id, $wpFileInfo['file']);
-        //wp_update_attachment_metadata($attach_id, $attach_data);
-
-        // add the link to the attachment to the post
-        //$attachmentLink = wp_get_attachment_link($attach_id, 'thumbnail', FALSE, FALSE, 'Download file');
-        //$updatePost = get_post($postID);
-        //$updated_post = array();
-        //$updated_post['ID'] = $postID;
-        //$updated_post['post_content'] = $updatePost->post_content . '<p>' . $attachmentLink . '</p>';
-        //wp_update_post($updated_post);
-
-        //
         array_push($messages, _e('Post created:', 'mp3-to-post') . ' ' . $title);
       } else {
         array_push($messages, _e('Post already exists:', 'mp3-to-post') . ' ' . $title);
@@ -275,19 +223,7 @@ function mp3_to_post($limit = 'all', $folderPath) {
   return $messages;
 }
 
-/**
- * Creates a folder based on the path provided
- *
- * @param $folderpath
- */
-function create_folder($folderPath){
-  // check if directory exists and makes it if it isn't
-  if (!is_dir($folderPath)) {
-    if (!mkdir($folderPath, 0777)) {
-      echo '<p><strong>Couldnt make the folder for you to put your files in, please check your permissions.</strong></p>';
-    }
-  }
-}
+
 
 /**
  * Gives an array of mp3 files to turn in to posts
