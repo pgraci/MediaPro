@@ -67,12 +67,12 @@ function mp3_admin() {
     // create some posts already!
     if (isset($_POST['create-all-posts'])) {
       echo '<pre>';
-      print_r(mp3_to_post('all', $mp3ToPostOptions['folder_path']));
+      print_r(audio_to_song_post('all', $mp3ToPostOptions['folder_path']));
       echo '</pre>';
     }
     if (isset($_POST['create-first-post'])) {
       echo '<pre>';
-      print_r(mp3_to_post(1, $mp3ToPostOptions['folder_path']));
+      print_r(audio_to_song_post(1, $mp3ToPostOptions['folder_path']));
       echo '</pre>';
     }
     // end POST check
@@ -132,7 +132,7 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function mp3_to_post($limit = 'all', $folderPath) {
+function audio_to_song_post($limit = 'all', $folderPath) {
   $messages = array();
 
   // get an array of mp3 files
