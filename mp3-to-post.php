@@ -83,7 +83,33 @@ function mp3_admin() {
     ?>
     <hr />
     <h3><?php _e('Old code was here that showed files listed. Removed since we will not be scanning a directory','audio-to-song-post'); ?></h3>
+    <script language="JavaScript">
+        jQuery(document).ready(function() {
+        jQuery('#upload_image_button').click(function() {
+        formfield = jQuery('#upload_image').attr('name');
+        tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+        return false;
+        });
 
+        window.send_to_editor = function(html) {
+        imgurl = jQuery('img',html).attr('src');
+        jQuery('#upload_image').val(imgurl);
+        tb_remove();
+        }
+
+        });
+    </script>
+    <table>
+    <tr valign="top">
+    	<td>Upload Image</td>
+    	<td><label for="upload_image">
+    		<input id="upload_image" type="text" size="36" name="upload_image" value="<?php echo $gearimage; ?>" />
+    		<input id="upload_image_button" type="button" value="Upload Image" />
+    		<br />Enter an URL or upload an image for the banner.
+    		</label>
+    	</td>
+    </tr>
+    </table>
   </div>
 <?php
 }
@@ -283,4 +309,17 @@ function get_ID3($filePath) {
 
   return $details;
 }
+
+function wp_gear_manager_admin_scripts() {
+  wp_enqueue_script('media-upload');
+  wp_enqueue_script('thickbox');
+  wp_enqueue_script('jquery');
+}
+
+function wp_gear_manager_admin_styles() {
+  wp_enqueue_style('thickbox');
+}
+
+add_action('admin_print_scripts', 'wp_gear_manager_admin_scripts');
+add_action('admin_print_styles', 'wp_gear_manager_admin_styles');
 ?>
