@@ -31,7 +31,7 @@ jQuery(document).ready(function($){
 
           selection.map( function( attachment ) {
 
-            attachment = attachment.toJSON();
+            attachment = selection.toJSON();
 
             // Do something with attachment.id and/or attachment.url here
 
@@ -40,7 +40,7 @@ jQuery(document).ready(function($){
 
 
 
-            attachment = custom_uploader.state().get('selection').toArray();
+            //attachment = custom_uploader.state().get('selection').toArray();
 
             $('#upload_image').val("foo " + the_final_list);
             //$('#upload_image').val(the_final_list);
