@@ -154,6 +154,8 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $the_folder_path, $th
 
         $song_diskpath = str_replace($the_url_path,$the_folder_path,$song_url);
 
+        echo $song_diskpath;
+
         array_push($mp3Files, $song_diskpath);
     }
 
