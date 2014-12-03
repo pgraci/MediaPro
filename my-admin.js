@@ -27,17 +27,8 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
 
 
-          var selection = file_frame.state().get('selection').toArray();
-
-          for (var i = 0, length = selection.length; i < length; i++) {
-            var attachment = selection[i];
-            the_final_list = attachment.url + ",";
-          }
-
-            //attachment = custom_uploader.state().get('selection').toArray();
-
-            $('#upload_image').val("foo " + the_final_list);
-            //$('#upload_image').val(the_final_list);
+            attachment = custom_uploader.state().get('selection').first().toJSON();
+            $('#upload_image').val(attachment.url);
 
         });
 
