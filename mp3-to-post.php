@@ -75,7 +75,15 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      echo(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
+
+      $arrlength = count($songs_array);
+
+
+      for($x = 0; $x < $arrlength; $x++) {
+        echo $songs_array[$x];
+      }
+
     }
     // end POST check
     ?>
