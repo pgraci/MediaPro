@@ -105,9 +105,9 @@ function mp3_admin() {
     </script>
 
         <div class="uploader">
-        	<input id="_unique_name" name="settings[_unique_name]" type="text" />
+          <input id="upload_image" type="text" size="36" name="ad_image" value="" />
           <br />
-        	<input id="_unique_name_button" class="button-primary" name="_unique_name_button" type="submit" value="Upload or Select Media" />
+          <input id="upload_image_button" class="button" type="button" value="Upload" />
         </div>
 
   </div>
@@ -310,9 +310,13 @@ function get_ID3($filePath) {
   return $details;
 }
 
-function setting_up() {
-  wp_enqueue_media();
-}
+add_action('admin_enqueue_scripts', 'my_admin_scripts');
 
-add_action('admin_setting_up', 'setting_up');
+function my_admin_scripts() {
+    if (isset($_GET['page']) && $_GET['page'] == 'audio-to-song-post') {
+        wp_enqueue_media();
+        wp_register_script('my-admin-js', WP_PLUGIN_URL.'/mp3-to-post/my-admin.js', array('jquery'));
+        wp_enqueue_script('my-admin-js');
+    }
+}
 ?>
