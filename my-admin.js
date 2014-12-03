@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection');
 
-            $.each(JSON.attachment, function(idx, obj) {
+            $.each(attachment, function(idx, obj) {
 	             alert(obj.url);
              });
 
