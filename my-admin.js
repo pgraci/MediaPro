@@ -29,14 +29,16 @@ jQuery(document).ready(function($){
 
             var selection = custom_uploader.state().get('selection');
 
-               selection.map( function( attachment ) {
+            all_the_urls = selection.toString();
 
-                 attachment = attachment.toJSON();
+               //selection.map( function( attachment ) {
+
+                 //attachment = attachment.toJSON();
 
                 // Do something with attachment.id and/or attachment.url here
 
-                all_the_urls = attachment.url + ", ";
-               });
+                //all_the_urls = attachment.url + ", ";
+               //});
 
             $('#upload_image').val(all_the_urls);
 
