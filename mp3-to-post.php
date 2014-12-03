@@ -91,7 +91,7 @@ function mp3_admin() {
           });
 
           window.send_to_editor = function(html) {
-            imgurl = jQuery('mp3',html).attr('src');
+            imgurl = jQuery('img',html).attr('src');
             jQuery('#upload_image').val(imgurl);
             tb_remove();
           }
