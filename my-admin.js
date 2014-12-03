@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
 
             the_final_list = attachment[0].toJSON();
 
-            $('#upload_image').val("foo " + the_final_list);
+            $('#upload_image').val("foo " + the_final_list.url);
             //$('#upload_image').val(the_final_list);
 
         });
