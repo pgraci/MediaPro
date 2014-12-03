@@ -106,6 +106,7 @@ function mp3_admin() {
 
         <div class="uploader">
         	<input id="_unique_name" name="settings[_unique_name]" type="text" />
+          <br />
         	<input id="_unique_name_button" class="button-primary" name="_unique_name_button" type="text" value="Upload or Select Media" />
         </div>
 
@@ -309,5 +310,9 @@ function get_ID3($filePath) {
   return $details;
 }
 
+function setting_up() {
+  wp_enqueue_media();
+}
 
+add_action('admin_setting_up', 'setting_up');
 ?>
