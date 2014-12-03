@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection').first().toJSON();
 
-            $('#upload_image').val(attachment.upload_url_path);
+            $('#upload_image').val(attachment.url);
             //$('#upload_image').val(the_final_list);
 
         });
