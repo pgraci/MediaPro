@@ -15,6 +15,21 @@
  * Variables, store them in the options array to grab as necessary
  */
 
+
+/**
+ * Variables, store them in the options array to grab as necessary
+ */
+$uploadsDetails = wp_upload_dir();
+
+// disk path of upload directory
+$folderPath = $uploadsDetails['basedir'];
+$urlPath = $uploadsDetails['baseurl'];
+
+$SongToPostOptions = array(
+  'folder_path' => $folderPath,
+  'base_url_path' => $urlPath,
+);
+
 update_option('audio-to-song-post', serialize($SongToPostOptions));
 
 
@@ -54,13 +69,13 @@ function song_admin() {
 
 
     <form method="post" action="">
-      <input type="submit" class="button-primary" name="create-post" value="<?php _e('Create All Posts','audio-to-song-post') ?>" />
+      <input type="submit" class="button-primary" name="create-post" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
     </form>
     <?php
     // create post!
     if (isset($_POST['create-post'])) {
       echo '<pre>';
-      print_r(audio_to_song_post('all', $_POST['posts_ids']));
+      print_r(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
       echo '</pre>';
     }
     // end POST check
@@ -125,11 +140,24 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $folderPath) {
+function audio_to_song_post($limit = 'all', $list_of_urls, $the_folder_path, $the_url_path) {
   $messages = array();
+  $mp3Files = array();
 
   // get an array of mp3 files
-  $mp3Files = mp3_array($folderPath);
+  //$mp3Files = mp3_array($folderPath);
+
+  $mp3Files_array = explode(',', $list_of_urls); //split string into array seperated by ', '
+    foreach($mp3Files_array as $song_url) //loop over values
+    {
+      // lookup each song's url path by replacing url path with folder path
+
+        $song_diskpath = str_replace($the_url_path,$the_folder_path,$song_url);
+
+        array_push($mp3Files, $song_diskpath);
+    }
+
+  sort($mp3Files);
 
   // check of there are files to process
   if(count($mp3Files) == 0){
@@ -150,7 +178,7 @@ function audio_to_song_post($limit = 'all', $folderPath) {
   while ($i <= $limit):
 
     // Analyze file and store returned data in $ThisFileInfo
-    $filePath = $folderPath . '/' . $mp3Files[$i];
+    $filePath = $mp3Files[$i];
     $ThisFileInfo = $getID3->analyze($filePath);
 
     /*
