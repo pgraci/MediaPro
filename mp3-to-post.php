@@ -76,8 +76,6 @@ function song_admin() {
     // create post!
     if (isset($_POST['create-post'])) {
       echo '<pre>';
-      echo($_POST['posts_ids']);
-
       print_r(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
       echo '</pre>';
     }
@@ -152,9 +150,6 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
   $mp3Files_array = explode(',', $list_of_urls); //split string into array seperated by ', '
     foreach($mp3Files_array as $song_url) //loop over values
     {
-
-      array_push($messages, _e('TESTING: ' . $list_of_urls, 'audio-to-song-post'));
-
       // lookup each song's url path by replacing url path with folder path
         $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
 
