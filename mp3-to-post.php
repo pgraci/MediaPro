@@ -234,7 +234,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
         array_push($messages, _e('<p>Post already exists: ' . $title . '</p>', 'audio-to-song-post'));
       }
     } else {
-      array_push($messages, _e($filePath . 'Either the title or comments are not set in the ID3 information.   Make sure they are both set for v1 and v2.', 'audio-to-song-post'));
+      array_push($messages, _e('Either the title or comments are not set in the ID3 information.   Make sure they are both set for v1 and v2.', 'audio-to-song-post'));
     }
     $i++;
   endwhile; //
