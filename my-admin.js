@@ -28,8 +28,12 @@ jQuery(document).ready(function($){
 
 
             var selection = custom_uploader.state().get('selection').toJSON();
-
-              console.log(selection); 
+              for (var key in selection) {
+                if (selection.hasOwnProperty(key)) {
+                  console.log(selection[key].id);
+                  console.log(selection[key].url);
+                }
+              }
 
             //$('#upload_image').val(all_the_urls);
 
