@@ -195,6 +195,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $title = $ThisFileInfo['tags']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags']['id3v2']['genre'][0];
     $comment = $ThisFileInfo['tags']['id3v2']['comments'][0];
+    $description = $ThisFileInfo['tags']['id3v2']['description'][0];
 
     // check if we have a title and a comment
     if ($title && $comment){
@@ -210,7 +211,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
         // create basic post with info from ID3 details
         $my_post = array(
           'post_title' => $title,
-          'post_content' => $comment,
+          'post_content' => $description,
           'post_author' => 1,
           'post_name' => $title,
         );
@@ -270,40 +271,6 @@ function mp3_array($folderPath){
   sort($mp3Files);
 
   return $mp3Files;
-}
-
-
-/**
- * Gets the ID3 info of a file
- *
- * @param $filePath
- * String, base path to the mp3 file
- *
- * @return array
- * Keyed array with title, comment and category as keys.
- */
-function get_ID3($filePath) {
-  // Initialize getID3 engine
-  $get_ID3 = new getID3;
-  $ThisFileInfo = $get_ID3->analyze($filePath);
-
-  /**
-   * Optional: copies data from all subarrays of [tags] into [comments] so
-   * metadata is all available in one location for all tag formats
-   * metainformation is always available under [tags] even if this is not called
-   */
-  getid3_lib::CopyTagsToComments($ThisFileInfo);
-  $title = $ThisFileInfo['tags']['id3v2']['title'][0];
-  $comment = $ThisFileInfo['tags']['id3v2']['comments'][0];
-  $category = $ThisFileInfo['tags']['id3v2']['genre'][0];
-
-  $details = array(
-    'title' => $title,
-    'comment' => $comment,
-    'category' => $category,
-  );
-
-  return $details;
 }
 
 add_action('admin_enqueue_scripts', 'my_admin_scripts');
