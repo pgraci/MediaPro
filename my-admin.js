@@ -27,8 +27,11 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection').toJSON();
 
+            $.each(attachment, function() {
+                the_final_list += "testing: " + this.url;
+            });
 
-            the_final_list = "testing: " + attachment.url;
+
 
             $('#upload_image').val(the_final_list);
         });
