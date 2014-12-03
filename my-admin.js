@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
                 }
               }
 
-            $('#upload_image').val(all_the_ids.join());
+            $('#posts_ids').val(all_the_ids.join());
 
         });
 

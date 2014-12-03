@@ -14,33 +14,23 @@
 /**
  * Variables, store them in the options array to grab as necessary
  */
-$uploadsDetails = wp_upload_dir();
-$mp3FolderName = 'audio-to-song-post';
-$folderPath = $uploadsDetails['basedir'] . '/' . $mp3FolderName;
-$base_path = parse_url($uploadsDetails['baseurl'], PHP_URL_PATH);
 
-
-$mp3ToPostOptions = array(
-  'folder_name' => $mp3FolderName,
-  'folder_path' => $folderPath,
-  'base_url_path' => $base_path,
-);
-update_option('audio-to-song-post', serialize($mp3ToPostOptions));
+update_option('audio-to-song-post', serialize($SongToPostOptions));
 
 
 /* create the menu item and link to to an admin function */
-function mp3_admin_actions() {
-  add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "mp3_admin");
+function song_admin_actions() {
+  add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "song_admin");
 }
 
 /* add the menu item */
-add_action('admin_menu', 'mp3_admin_actions');
+add_action('admin_menu', 'song_admin_actions');
 
 /**
  * Creates the admin page for the plugin
  *
  */
-function mp3_admin() {
+function song_admin() {
   /**
    * Add the ID3 library.  Adding it here so it's only used as needed
    * http://wordpress.org/support/topic/plugin-blubrry-powerpress-podcasting-plugin-conflict-with-audio-to-song-post-plugin?replies=1#post-2833002
@@ -52,7 +42,7 @@ function mp3_admin() {
     <h2>Audio to Song Post</h2>
     <?php
     // load our variables in to an array
-    $mp3ToPostOptions = unserialize(get_option('audio-to-song-post'));
+    $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
     ?>
     <p><?php _e('This plugin will allow you to select songs in the Media Library, and turn them into Song type posts.','audio-to-song-post'); ?></p>
     <p><?php _e('It takes the ID3v2 title and sets it as the post title. ','audio-to-song-post'); ?></p>
@@ -70,7 +60,7 @@ function mp3_admin() {
     // create post!
     if (isset($_POST['create-post'])) {
       echo '<pre>';
-      print_r(audio_to_song_post('all', $mp3ToPostOptions['folder_path']));
+      print_r(audio_to_song_post('all', $_POST['posts_ids']));
       echo '</pre>';
     }
     // end POST check
@@ -78,7 +68,7 @@ function mp3_admin() {
     <hr />
 
     <div class="uploader">
-      <input id="upload_image" type="text" size="36" name="ad_image" value="" />
+      <input id="posts_ids" type="text" size="36" name="ad_image" value="" />
       <br />
       <input id="upload_image_button" class="button-primary" type="button" value="Upload" />
     </div>
@@ -86,7 +76,7 @@ function mp3_admin() {
   </div>
 <?php
 }
-// end mp3_admin
+// end song_admin
 
 
 
