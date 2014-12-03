@@ -26,17 +26,16 @@ jQuery(document).ready(function($){
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
 
-            var all_the_ids = new String();
+            var all_the_ids = [];
 
             var selection = custom_uploader.state().get('selection').toJSON();
               for (var key in selection) {
                 if (selection.hasOwnProperty(key)) {
-                  //console.log(selection[key].id);
-                  all_the_ids += selection[key].url;
+                  all_the_ids.push(selection[key].id);
                 }
               }
 
-            $('#upload_image').val(all_the_ids);
+            $('#upload_image').val(all_the_ids.join());
 
         });
 
