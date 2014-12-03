@@ -25,13 +25,10 @@ jQuery(document).ready(function($){
 
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
-            var selection = custom_uploader.state().get('selection');
+            attachment = custom_uploader.state().get('selection').first().toJSON;
 
-            selection.map( function( attachment ) {
 
-              attachment = attachment.toJSON();
-              // Do something with attachment.id and/or attachment.url here
-              alert(attachment.url);
+              alert(attachment.upload_url_path);
 
             });
 
