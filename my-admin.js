@@ -30,7 +30,7 @@ jQuery(document).ready(function($){
 
             the_final_list = "testing: " + attachment.url;
 
-            $('#upload_image').val(attachment.url);
+            $('#upload_image').val(the_final_list);
         });
 
         //Open the uploader dialog
