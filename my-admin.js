@@ -27,10 +27,22 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
 
 
-            attachment = custom_uploader.state().get('selection').first().toJSON();
+            var selection = custom_uploader.state().get('selection');
+
+               selection.map( function( attachment ) {
+
+                 attachment = attachment.toJSON();
+
+                // Do something with attachment.id and/or attachment.url here
+
+                 $('#upload_image').val(attachment.url);
+
+               });
+
             $('#upload_image').val(attachment.url);
 
         });
+
 
         //Open the uploader dialog
         custom_uploader.open();
@@ -39,16 +51,3 @@ jQuery(document).ready(function($){
 
 
 });
-
-
-file_frame.on( 'select', function() {
-
-    var selection = file_frame.state().get('selection');
-
-    selection.map( function( attachment ) {
-
-      attachment = attachment.toJSON();
-
-      // Do something with attachment.id and/or attachment.url here
-    });
-  });

@@ -64,11 +64,11 @@ function mp3_admin() {
 
 
     <form method="post" action="">
-      <input type="submit" class="button-primary" name="create-all-posts" value="<?php _e('Create All Posts','audio-to-song-post') ?>" />
+      <input type="submit" class="button-primary" name="create-post" value="<?php _e('Create All Posts','audio-to-song-post') ?>" />
     </form>
     <?php
-    // create some posts already!
-    if (isset($_POST['create-all-posts'])) {
+    // create post!
+    if (isset($_POST['create-post'])) {
       echo '<pre>';
       print_r(audio_to_song_post('all', $mp3ToPostOptions['folder_path']));
       echo '</pre>';
