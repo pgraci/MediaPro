@@ -82,7 +82,7 @@ function mp3_admin() {
 
           var file_frame;
 
-            jQuery('.upload_image_button').live('click', function( event ){
+            jQuery('#upload_image_button').live('click', function( event ){
 
               event.preventDefault();
 
