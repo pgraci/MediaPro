@@ -83,18 +83,19 @@ function mp3_admin() {
     ?>
     <hr />
     <script language="JavaScript">
-        $(function() {
-          $('#upload_image_button').click(function() {
-            formfield = jQuery('#upload_image').attr('name');
-            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-            return false;
-          });
+        jQuery(document).ready(function() {
+        jQuery('#upload_image_button').click(function() {
+        formfield = jQuery('#upload_image').attr('name');
+        tb_show('', 'media-upload.php?type=image&TB_iframe=true');
+        return false;
+        });
 
-          window.send_to_editor = function(html) {
-            imgurl = jQuery('img',html).attr('src');
-            jQuery('#upload_image').val(imgurl);
-            tb_remove();
-          }
+        window.send_to_editor = function(html) {
+        imgurl = jQuery('mp3',html).attr('src');
+        jQuery('#upload_image').val(imgurl);
+        tb_remove();
+        }
+
         });
     </script>
 
