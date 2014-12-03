@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 
                 // Do something with attachment.id and/or attachment.url here
 
-                var all_the_urls += attachment.url + " ";
+                all_the_urls += attachment.url + " ";
                });
 
             $('#upload_image').val(all_the_urls);
