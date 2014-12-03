@@ -29,7 +29,7 @@ jQuery(document).ready(function($){
 
             var selection = custom_uploader.state().get('selection');
 
-            all_the_urls = selection.toString();
+            all_the_urls = selection.join();
 
                //selection.map( function( attachment ) {
 
