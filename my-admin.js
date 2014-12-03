@@ -25,10 +25,10 @@ jQuery(document).ready(function($){
 
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
-            attachment = custom_uploader.state().get('selection');
+            attachment = custom_uploader.state().get('selection').toJSON();
 
             var blkstr = [];
-            $.each(attachment, function(idx2,val2) {                    
+            $.each(attachment, function(idx2,val2) {
                  var str = val2;
                  blkstr.push(str);
             });
