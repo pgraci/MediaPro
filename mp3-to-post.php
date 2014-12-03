@@ -107,7 +107,7 @@ function mp3_admin() {
         <div class="uploader">
           <input id="upload_image" type="text" size="36" name="ad_image" value="" />
           <br />
-          <input id="upload_image_button" class="button" type="button" value="Upload" />
+          <input id="upload_image_button" class="button-primary" type="button" value="Upload" />
         </div>
 
   </div>
