@@ -150,6 +150,9 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
   $mp3Files_array = explode(',', $list_of_urls); //split string into array seperated by ', '
     foreach($mp3Files_array as $song_url) //loop over values
     {
+
+      array_push($messages, _e('TESTING: ' . $song_url, 'audio-to-song-post'));
+
       // lookup each song's url path by replacing url path with folder path
         $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
 
@@ -178,9 +181,6 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
     // Analyze file and store returned data in $ThisFileInfo
     $filePath = $mp3Files[$i];
-
-    array_push($messages, _e('TESTING: ' . $i, 'audio-to-song-post'));
-
     $ThisFileInfo = $getID3->analyze($filePath);
 
     /*
