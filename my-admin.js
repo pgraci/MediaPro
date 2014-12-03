@@ -27,12 +27,9 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
             attachment = custom_uploader.state().get('selection');
 
-            $.each(attachment, function(idx, obj) {
-	             alert(obj.url);
-             });
 
             //$('#upload_image').val(attachment.url);
-            //alert(attachment.url);
+            alert(attachment.url);
         });
 
         //Open the uploader dialog
