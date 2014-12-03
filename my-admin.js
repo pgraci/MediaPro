@@ -31,13 +31,13 @@ jQuery(document).ready(function($){
 
               attachment = attachment.toJSON();
               // Do something with attachment.id and/or attachment.url here
-              the_final_list += "testing: " + attachment.url;
+              alert(attachment.url);
 
             });
 
 
 
-            $('#upload_image').val(the_final_list);
+            //$('#upload_image').val(the_final_list);
         });
 
         //Open the uploader dialog
