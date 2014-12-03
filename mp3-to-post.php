@@ -82,7 +82,6 @@ function mp3_admin() {
     // end POST check
     ?>
     <hr />
-
     <script language="JavaScript">
         jQuery(document).ready(function() {
         jQuery('#upload_image_button').click(function() {
@@ -99,12 +98,17 @@ function mp3_admin() {
 
         });
     </script>
-
-
-    		<input id="upload_image" type="text" size="36" name="upload_image" value="" />
-        <input class="button-primary" type="button" value="Select Media" />
-
-
+    <table>
+    <tr valign="top">
+    	<td>Upload Image</td>
+    	<td>
+    		<input id="upload_image" type="text" size="36" name="upload_image" value="<?php echo $gearimage; ?>" />
+        <input id="upload_image_button" class="button-primary" type="button" value="Select Media" />
+    		<br />Enter an URL or upload an image for the banner.
+    		</label>
+    	</td>
+    </tr>
+    </table>
   </div>
 <?php
 }
