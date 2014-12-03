@@ -25,10 +25,14 @@ jQuery(document).ready(function($){
 
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
-            attachment = custom_uploader.state().get('selection').toJSON();
+            attachment = custom_uploader.state().get('selection');
 
-            $.each(attachment, function() {
-                the_final_list += "testing: " + this.url;
+            selection.map( function( attachment ) {
+
+              attachment = attachment.toJSON();
+              // Do something with attachment.id and/or attachment.url here
+              the_final_list += "testing: " + attachment.url;
+
             });
 
 
@@ -43,3 +47,16 @@ jQuery(document).ready(function($){
 
 
 });
+
+
+file_frame.on( 'select', function() {
+
+    var selection = file_frame.state().get('selection');
+
+    selection.map( function( attachment ) {
+
+      attachment = attachment.toJSON();
+
+      // Do something with attachment.id and/or attachment.url here
+    });
+  });
