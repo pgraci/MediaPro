@@ -31,11 +31,9 @@ jQuery(document).ready(function($){
 
                selection.map( function( attachment ) {
 
-                 attachment = attachment.toJSON();
+                 attachment .= attachment.toJSON() + " ";
 
                 // Do something with attachment.id and/or attachment.url here
-
-                 $('#upload_image').val(attachment.url);
 
                });
 
