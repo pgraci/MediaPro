@@ -140,7 +140,7 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_urls, $the_folder_path, $the_url_path) {
+function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath) {
   $messages = array();
   $mp3Files = array();
 
@@ -151,15 +151,12 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $the_folder_path, $th
     foreach($mp3Files_array as $song_url) //loop over values
     {
       // lookup each song's url path by replacing url path with folder path
-
-        $song_diskpath = str_replace($the_url_path,$the_folder_path,$song_url);
-
-        array_push($messages, _e($song_diskpath, 'mp3-to-post'));
+        $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
 
         array_push($mp3Files, $song_diskpath);
     }
 
-  sort($mp3Files);
+  //sort($mp3Files);
 
   // check of there are files to process
   if(count($mp3Files) == 0){
