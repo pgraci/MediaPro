@@ -36,6 +36,8 @@ jQuery(document).ready(function($){
               }
 
             $('#posts_ids').val(all_the_ids.join());
+            $('#upload_image_button').css('display','none');
+            $('#create_posts').css('display','block');
 
         });
 

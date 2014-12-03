@@ -69,12 +69,12 @@ function song_admin() {
 
 
     <form method="post" action="">
-      <input type="submit" class="button-primary" name="create-post" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
-      <input id="posts_ids" type="text" size="36" name="posts_ids" value="" />
+      <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
+      <input id="posts_ids"name="posts_ids" type="hidden" size="36" value="" />
     </form>
     <?php
     // create post!
-    if (isset($_POST['create-post'])) {
+    if (isset($_POST['create_posts'])) {
       echo '<pre>';
       print_r(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
       echo '</pre>';
@@ -85,7 +85,7 @@ function song_admin() {
 
     <div class="uploader">
       <br />
-      <input id="upload_image_button" class="button-primary" type="button" value="Upload" />
+      <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
     </div>
 
   </div>
