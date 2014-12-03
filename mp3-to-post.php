@@ -76,7 +76,7 @@ function song_admin() {
     // create post!
     if (isset($_POST['create-post'])) {
       echo '<pre>';
-      print_r($_POST['posts_ids']);
+      echo($_POST['posts_ids']);
 
       print_r(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
       echo '</pre>';
