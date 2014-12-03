@@ -107,7 +107,7 @@ function mp3_admin() {
         <div class="uploader">
         	<input id="_unique_name" name="settings[_unique_name]" type="text" />
           <br />
-        	<input id="_unique_name_button" class="button" name="_unique_name_button" type="text" value="Upload" />
+        	<input id="_unique_name_button" class="button-primary" name="_unique_name_button" type="submit" value="Upload or Select Media" />
         </div>
 
   </div>
