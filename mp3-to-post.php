@@ -75,9 +75,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      echo '<pre>';
       print_r(audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
-      echo '</pre>';
     }
     // end POST check
     ?>
@@ -231,9 +229,9 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
         }
 
 
-        array_push($messages, _e('Post created:', 'audio-to-song-post') . ' ' . $title);
+        array_push($messages, _e('<p>Post created: '  . $title . '</p>', 'audio-to-song-post'));
       } else {
-        array_push($messages, _e('Post already exists:', 'audio-to-song-post') . ' ' . $title);
+        array_push($messages, _e('<p>Post already exists: ' . $title . '</p>', 'audio-to-song-post'));
       }
     } else {
       array_push($messages, _e($filePath . 'Either the title or comments are not set in the ID3 information.   Make sure they are both set for v1 and v2.', 'audio-to-song-post'));
