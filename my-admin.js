@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
 
 
-            var selection = custom_uploader.state().get('selection').toJSON();
+            var selection = custom_uploader.state().get('selection');
 
                selection.map( function( attachment ) {
 
@@ -35,7 +35,7 @@ jQuery(document).ready(function($){
 
                 // Do something with attachment.id and/or attachment.url here
 
-                all_the_urls = all_the_urls + attachment.url + ", ";
+                all_the_urls += attachment.url + ", ";
                });
 
             $('#upload_image').val(all_the_urls);
