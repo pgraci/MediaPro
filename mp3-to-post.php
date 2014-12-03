@@ -70,7 +70,7 @@ function song_admin() {
 
     <form method="post" action="">
       <input type="submit" class="button-primary" name="create-post" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
-      <input id="posts_ids" type="text" size="36" name="ad_image" value="" />
+      <input id="posts_ids" type="text" size="36" name="posts_ids" value="" />
     </form>
     <?php
     // create post!
