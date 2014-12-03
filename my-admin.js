@@ -29,9 +29,10 @@ jQuery(document).ready(function($){
 
           var selection = file_frame.state().get('selection').toArray();
 
-          $.each(selection, function(index, attachment) {
-            the_final_list += attachment.url + ",";
-          });
+          for (var i = 0, length = selection.length; i < length; i++) {
+            var attachment = selection[i];
+            the_final_list = attachment.url + ",";
+          }
 
             //attachment = custom_uploader.state().get('selection').toArray();
 
