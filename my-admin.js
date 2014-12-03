@@ -31,13 +31,14 @@ jQuery(document).ready(function($){
 
                selection.map( function( attachment ) {
 
-                 attachment .= attachment.toJSON() + " ";
+                 attachment = attachment.toJSON();
 
                 // Do something with attachment.id and/or attachment.url here
 
+                var all_the_urls += attachment.url + " ";
                });
 
-            $('#upload_image').val(attachment.url);
+            $('#upload_image').val(all_the_urls);
 
         });
 
