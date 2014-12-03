@@ -74,27 +74,46 @@ function mp3_admin() {
       print_r(audio_to_song_post('all', $mp3ToPostOptions['folder_path']));
       echo '</pre>';
     }
-    if (isset($_POST['create-first-post'])) {
-      echo '<pre>';
-      print_r(audio_to_song_post(1, $mp3ToPostOptions['folder_path']));
-      echo '</pre>';
-    }
     // end POST check
     ?>
     <hr />
     <script language="JavaScript">
         jQuery(document).ready(function() {
-          jQuery('#upload_image_button').click(function() {
-            formfield = jQuery('#upload_image').attr('name');
-            tb_show('', 'media-upload.php?type=image&TB_iframe=true');
-            return false;
-          });
 
-        window.send_to_editor = function(html) {
-          imgurl = jQuery(html).attr('href');
-          jQuery('#upload_image').val(imgurl);
-          tb_remove();
-        }
+          var file_frame;
+
+            jQuery('.upload_image_button').live('click', function( event ){
+
+              event.preventDefault();
+
+              // If the media frame already exists, reopen it.
+              if ( file_frame ) {
+                file_frame.open();
+                return;
+              }
+
+              // Create the media frame.
+              file_frame = wp.media.frames.file_frame = wp.media({
+                title: jQuery( this ).data( 'uploader_title' ),
+                button: {
+                  text: jQuery( this ).data( 'uploader_button_text' ),
+                },
+                multiple: false  // Set to true to allow multiple files to be selected
+              });
+
+              // When an image is selected, run a callback.
+              file_frame.on( 'select', function() {
+                // We set multiple to false so only get one image from the uploader
+                attachment = file_frame.state().get('selection').first().toJSON();
+
+                // Do something with attachment.id and/or attachment.url here
+
+                alert(attachment.url);
+              });
+
+              // Finally, open the modal
+              file_frame.open();
+            });
 
         });
     </script>
@@ -304,16 +323,9 @@ function get_ID3($filePath) {
   return $details;
 }
 
-function wp_gear_manager_admin_scripts() {
-  wp_enqueue_script('media-upload');
-  wp_enqueue_script('thickbox');
-  wp_enqueue_script('jquery');
+function setting_up() {
+  wp_enqueue_media();
 }
 
-function wp_gear_manager_admin_styles() {
-  wp_enqueue_style('thickbox');
-}
-
-add_action('admin_print_scripts', 'wp_gear_manager_admin_scripts');
-add_action('admin_print_styles', 'wp_gear_manager_admin_styles');
+add_action('admin_setting_up', 'setting_up');
 ?>
