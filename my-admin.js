@@ -16,11 +16,11 @@ jQuery(document).ready(function($){
 
         //Extend the wp.media object
         custom_uploader = wp.media.frames.file_frame = wp.media({
-            title: 'Choose Image',
+            title: 'Process Media Library Custom Shit',
             button: {
-                text: 'Choose Image'
+                text: 'Select Songs'
             },
-            multiple: false
+            multiple: true
         });
 
         //When a file is selected, grab the URL and set it as the text field's value
