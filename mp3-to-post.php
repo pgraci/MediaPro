@@ -65,7 +65,6 @@ function mp3_admin() {
 
     <form method="post" action="">
       <input type="submit" class="button-primary" name="create-all-posts" value="<?php _e('Create All Posts','audio-to-song-post') ?>" />
-      <input type="submit" class="button-primary" name="create-first-post" value="<?php _e('Create 1st Post','audio-to-song-post') ?>" />
     </form>
     <?php
     // create some posts already!
