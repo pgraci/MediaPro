@@ -82,7 +82,7 @@ function mp3_admin() {
     // end POST check
     ?>
     <hr />
-    <h3><?php _e('Old code was here that showed files listed. Removed since we will not be scanning a directory','audio-to-song-post'); ?></h3>
+
     <script language="JavaScript">
         jQuery(document).ready(function() {
         jQuery('#upload_image_button').click(function() {
@@ -99,16 +99,12 @@ function mp3_admin() {
 
         });
     </script>
-    <table>
-    <tr valign="top">
-    	<td>Upload Image</td>
-    	<td><label for="upload_image">
-    		<input class="button-primary" type="button" value="Select Media" />
-    		<br />Enter an URL or upload an image for the banner.
-    		</label>
-    	</td>
-    </tr>
-    </table>
+
+
+    		<input id="upload_image" type="text" size="36" name="upload_image" value="" />
+        <input class="button-primary" type="button" value="Select Media" />
+
+
   </div>
 <?php
 }
