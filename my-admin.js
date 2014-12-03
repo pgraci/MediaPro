@@ -27,7 +27,7 @@ jQuery(document).ready(function($){
         custom_uploader.on('select', function() {
 
 
-          var selection = file_frame.state().get('selection');
+          var selection = file_frame.state().get('selection').toArray();
 
           selection.map( function( attachment ) {
 
