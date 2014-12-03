@@ -29,7 +29,9 @@ jQuery(document).ready(function($){
 
             var selection = custom_uploader.state().get('selection');
 
-            all_the_urls = selection.join();
+            console.log(selection);
+
+            //all_the_urls = selection.join();
 
                //selection.map( function( attachment ) {
 
@@ -40,7 +42,7 @@ jQuery(document).ready(function($){
                 //all_the_urls = attachment.url + ", ";
                //});
 
-            $('#upload_image').val(all_the_urls);
+            //$('#upload_image').val(all_the_urls);
 
         });
 
