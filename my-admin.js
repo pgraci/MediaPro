@@ -25,13 +25,12 @@ jQuery(document).ready(function($){
 
         //When a file is selected, grab the URL and set it as the text field's value
         custom_uploader.on('select', function() {
-            attachment = custom_uploader.state().get('selection');
-            var attachment_ary = [];
-              $.each(attachment, function(id,url) {
-                var the_url = url;
-                attachment_ary.push(the_url);
-              });
-              alert(attachment_ary.join(", "));
+            attachment = custom_uploader.state().get('selection').toJSON();
+
+            $.each(JSON.parse(attachment), function(idx, obj) {
+	             alert(obj.url);
+             });
+
             //$('#upload_image').val(attachment.url);
             //alert(attachment.url);
         });
