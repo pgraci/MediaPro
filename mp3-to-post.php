@@ -309,9 +309,6 @@ function get_ID3($filePath) {
   return $details;
 }
 
-function setting_up() {
-  wp_enqueue_media();
-}
+wp_enqueue_media();
 
-add_action('admin_setting_up', 'setting_up');
 ?>
