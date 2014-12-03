@@ -309,6 +309,5 @@ function get_ID3($filePath) {
   return $details;
 }
 
-wp_enqueue_media();
 
 ?>
