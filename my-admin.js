@@ -29,16 +29,9 @@ jQuery(document).ready(function($){
 
           var selection = file_frame.state().get('selection').toArray();
 
-          selection.map( function( attachment ) {
-
-            attachment = selection.toJSON();
-
-            // Do something with attachment.id and/or attachment.url here
-
-            the_final_list = attachment.url;
+          $.each(selection, function(index, attachment) {
+            the_final_list += attachment.url + ",";
           });
-
-
 
             //attachment = custom_uploader.state().get('selection').toArray();
 
