@@ -176,12 +176,10 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
   }
   while ($i <= $limit):
 
-  array_push($messages, _e('TESTING', 'audio-to-song-post'));
-
     // Analyze file and store returned data in $ThisFileInfo
     $filePath = $mp3Files[$i];
 
-    array_push($messages, _e('TESTING: ' . $filePath, 'audio-to-song-post'));
+    array_push($messages, _e('TESTING: ' . $i, 'audio-to-song-post'));
 
     $ThisFileInfo = $getID3->analyze($filePath);
 
