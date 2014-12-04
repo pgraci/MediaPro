@@ -190,7 +190,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
      $comment_ary = explode(" ", $comment);
 
-     $comment = count($comment_ary);
+     $comment = strlen($comment_ary[0];
     // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
     // http://id3.org/iTunes%20Normalization%20settings
 
