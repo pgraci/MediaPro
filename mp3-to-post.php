@@ -197,8 +197,10 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $comment = $ThisFileInfo['tags']['id3v2']['comment'][0];
 
       if ($comment = '') {
-        $comment = $ThisFileInfo['tags_html']['id3v2']['comment'][0];
+        $comment = $ThisFileInfo['tags']['id3v2']['comment']['iTunNORM'];
       }
+
+
 
     // check if we have a title and a comment
     if ($title && $comment){
