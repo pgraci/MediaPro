@@ -195,7 +195,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
      if ((count($comment_ary) == 10) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8))) {
       // try to get the next comments array which should have the proper data.
-       $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+       $comment = "test, " . $ThisFileInfo['tags_html']['id3v2']['comments'][1];
      }
 
     // check if we have a title and a comment
