@@ -37,7 +37,7 @@ update_option('audio-to-song-post', serialize($SongToPostOptions));
 add_action('admin_menu', 'song_admin_actions');
 
 function song_admin_actions(){
-    add_menu_page( 'AudioPost', 'AudioPost', 'manage_options', 'audio-to-song-post', 'song_admin', plugins_url( 'dashicons dashicons-media-audio' ), 6 ); 
+    add_menu_page( 'AudioPost', 'AudioPost', 'manage_options', 'audio-to-song-post', 'song_admin', 'dashicons-admin-generic', 6 );
 }
 
 /**
@@ -53,7 +53,7 @@ function song_admin() {
 
   ?>
   <div class="wrap">
-    <h2>Audio to Song Post</h2>
+    <h2>AudioPost</h2>
     <?php
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
