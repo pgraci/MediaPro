@@ -190,7 +190,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
       metadata is all available in one location for all tag formats
       metainformation is always available under [tags] even if this is not called
      */
-    getid3_lib::CopyTagsToComments($ThisFileInfo);
+    getid3_lib:($ThisFileInfo);
     $title = $ThisFileInfo['tags']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags']['id3v2']['subtitle'][0];
