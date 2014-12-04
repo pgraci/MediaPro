@@ -200,7 +200,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
      $comment_ary = explode(" ", $comment);
     //
-     if (count($comment_ary) == 8) {
+     if (count($comment_ary) == 10) {
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
      }
 
