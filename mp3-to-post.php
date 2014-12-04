@@ -37,7 +37,7 @@ update_option('audio-to-song-post', serialize($SongToPostOptions));
 add_action('admin_menu', 'song_admin_actions');
 
 function song_admin_actions(){
-    add_menu_page( 'Audio to Song Post', 'Audio To Song Post', 'manage_options', 'audio-to-song-post', 'song_admin', plugins_url( 'dashicons-media-audio' ), 6 ); 
+    add_menu_page( 'AudioPost', 'Audio To Song Post', 'manage_options', 'audio-to-song-post', 'song_admin', plugins_url( 'dashicons dashicons-media-audio' ), 6 ); 
 }
 
 /**
