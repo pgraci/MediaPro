@@ -14,11 +14,6 @@
 /**
  * Variables, store them in the options array to grab as necessary
  */
-
-
-/**
- * Variables, store them in the options array to grab as necessary
- */
 $uploadsDetails = wp_upload_dir();
 
 // disk path of upload directory
@@ -34,12 +29,16 @@ update_option('audio-to-song-post', serialize($SongToPostOptions));
 
 
 /* create the menu item and link to to an admin function */
-function song_admin_actions() {
-  add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "song_admin");
-}
+// function song_admin_actions() {
+//   add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "song_admin");
+// }
 
 /* add the menu item */
 add_action('admin_menu', 'song_admin_actions');
+
+function song_admin_actions(){
+    add_menu_page( 'Audio to Song Post', 'Audio To Song Post', 'manage_options', 'audio-to-song-post', 'song_admin', plugins_url( 'dashicons-media-audio' ), 6 ); 
+}
 
 /**
  * Creates the admin page for the plugin
