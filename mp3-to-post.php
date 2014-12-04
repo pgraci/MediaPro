@@ -193,8 +193,12 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     getid3_lib::CopyTagsToComments($ThisFileInfo);
     $title = $ThisFileInfo['tags']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags']['id3v2']['genre'][0];
-    $comment = $ThisFileInfo['tags']['id3v2']['comment'][0];  
+    $comment = $ThisFileInfo['tags']['id3v2']['comments'][0];
     $description = $ThisFileInfo['tags']['id3v2']['description'][0];
+
+    // if ($comment = '') {
+    //   $comment = $ThisFileInfo['tags']['id3v2']['comments'][0];
+    // }
 
     // check if we have a title and a comment
     if ($title && $comment){
