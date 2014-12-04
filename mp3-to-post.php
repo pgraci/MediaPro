@@ -194,7 +194,9 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     // http://id3.org/iTunes%20Normalization%20settings
     // or it might be this which is 12 elements iTunSMPB
 
-     if (count($comment_ary) == 10||count($comment_ary) == 12) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8)) {
+    $comment_ary_count = count($comment_ary);
+
+     if ($comment_ary_count == 10||$comment_ary_count == 12) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8)) {
       // try to get the next comments array which should have the proper data.
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
      }
