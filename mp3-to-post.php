@@ -58,15 +58,6 @@ function song_admin() {
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
     ?>
-    <p><?php _e('This plugin will allow you to select songs in the Media Library, and turn them into Song type posts.','audio-to-song-post'); ?></p>
-    <p><?php _e('It takes the ID3v2 title and sets it as the post title. ','audio-to-song-post'); ?></p>
-    <p><?php _e('Comments are converted into Tags if option is checked.','audio-to-song-post'); ?></p>
-    <p><?php _e('Grouping field is converted into SubGenre(s) or Subcategories depending on your needs.','audio-to-song-post'); ?></p>
-    <p><?php _e('The MP3 artwork will be set as the featured image for the post.','audio-to-song-post'); ?></p>
-    <p><?php _e('The way the ID3 information is processed, <strong>the file needs to have the title and comment set in v1 and v2???? RESEARCH AND MODIFY IF POSSIBLE</strong>','audio-to-song-post'); ?></p>
-    <p><?php _e('If the genre is set on the file, that will be turned in to the category. If more than one genre is set in the ID3 information Audio to Song Post only takes the first one.  If the genre is not set the category on the post is set to the default option.','audio-to-song-post'); ?></p>
-
-
     <form method="post" action="">
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids"name="posts_ids" type="hidden" size="36" value="" />
@@ -196,11 +187,15 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
 
-    //test to see if comment retrieved is actually itunes normalization
+    // test to see if comment retrieved is actually itunes normalization
 
      $comment_ary = explode(" ", $comment);
-    //
-     if (count($comment_ary) == 10) {
+    // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
+    // http://id3.org/iTunes%20Normalization%20settings
+    // or it might be this which is 12 elements iTunSMPB
+
+     if (count($comment_ary) == 10||count($comment_ary) == 12) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8)) {
+      // try to get the next comments array which should have the proper data.
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
      }
 
