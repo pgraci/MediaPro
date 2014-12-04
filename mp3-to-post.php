@@ -186,17 +186,18 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
-
     // test to see if comment retrieved is actually itunes normalization
 
      $comment_ary = explode(" ", $comment);
+
+     $comment = count($comment_ary);
     // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
     // http://id3.org/iTunes%20Normalization%20settings
 
-     if ((count($comment_ary) == 10) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8))) {
-      // try to get the next comments array which should have the proper data.
-       $comment = "test, " . $ThisFileInfo['tags_html']['id3v2']['comments'][1];
-     }
+    //  if ((count($comment_ary) == 10) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8)) && (strlen($comment_ary[2] == 8))) {
+    //   // try to get the next comments array which should have the proper data.
+    //    $comment = "test, " . $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+    //  }
 
     // check if we have a title and a comment
     if ($title && $comment){
