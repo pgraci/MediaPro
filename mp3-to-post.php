@@ -194,9 +194,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
-    $comment = $ThisFileInfo['tags_html']['id3v2']['comment'][0];
-
-
+    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
 
     // check if we have a title and a comment
     if ($title && $comment){
