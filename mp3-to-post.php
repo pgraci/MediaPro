@@ -185,7 +185,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
-    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
     // test to see if comment retrieved is actually itunes normalization
 
      $comment_ary = explode(" ", $comment);
