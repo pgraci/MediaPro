@@ -58,15 +58,6 @@ function song_admin() {
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
     ?>
-    <p><?php _e('This plugin will allow you to select songs in the Media Library, and turn them into Song type posts.','audio-to-song-post'); ?></p>
-    <p><?php _e('It takes the ID3v2 title and sets it as the post title. ','audio-to-song-post'); ?></p>
-    <p><?php _e('Comments are converted into Tags if option is checked.','audio-to-song-post'); ?></p>
-    <p><?php _e('Grouping field is converted into SubGenre(s) or Subcategories depending on your needs.','audio-to-song-post'); ?></p>
-    <p><?php _e('The MP3 artwork will be set as the featured image for the post.','audio-to-song-post'); ?></p>
-    <p><?php _e('The way the ID3 information is processed, <strong>the file needs to have the title and comment set in v1 and v2???? RESEARCH AND MODIFY IF POSSIBLE</strong>','audio-to-song-post'); ?></p>
-    <p><?php _e('If the genre is set on the file, that will be turned in to the category. If more than one genre is set in the ID3 information Audio to Song Post only takes the first one.  If the genre is not set the category on the post is set to the default option.','audio-to-song-post'); ?></p>
-
-
     <form method="post" action="">
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids"name="posts_ids" type="hidden" size="36" value="" />
