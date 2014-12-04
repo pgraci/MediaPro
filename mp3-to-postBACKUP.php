@@ -213,7 +213,7 @@ function mp3_to_post($limit = 'all', $folderPath) {
         // If the category/genre is set then update the post
         if(!empty($category)){
           $category_ID = get_cat_ID($category);
-          // if a category exists 
+          // if a category exists
           if($category_ID) {
             $categories_array = array($category_ID);
             wp_set_post_categories($postID, $categories_array);
@@ -257,7 +257,7 @@ function mp3_to_post($limit = 'all', $folderPath) {
         $updated_post['post_content'] = $updatePost->post_content . '<p>' . $attachmentLink . '</p>';
         wp_update_post($updated_post);
 
-        // 
+        //
         array_push($messages, _e('Post created:', 'mp3-to-post') . ' ' . $title);
       } else {
         array_push($messages, _e('Post already exists:', 'mp3-to-post') . ' ' . $title);
@@ -327,7 +327,7 @@ function get_ID3($filePath) {
    */
   getid3_lib::CopyTagsToComments($ThisFileInfo);
   $title = $ThisFileInfo['tags']['id3v2']['title'][0];
-  $comment = $ThisFileInfo['tags']['id3v2']['comments'][0];
+  $comment = $ThisFileInfo['comments']['id3v2']['comments'][0];
   $category = $ThisFileInfo['tags']['id3v2']['genre'][0];
 
   $details = array(
