@@ -62,8 +62,8 @@ function song_admin() {
 
       <p>select type of post - blog, remix song, or podcast</p>
       <select id="type_of_post" name="type_of_post">
-        <option value="1">Blog Post</option>
-        <option value="2">Song Post</option>
+        <option value="post">Blog Post</option>
+        <option value="songs">Song Post</option>
       </select>
       <br />
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
@@ -143,7 +143,7 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $typeofpost) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type) {
   $messages = array();
   $mp3Files = array();
 
@@ -154,9 +154,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     foreach($mp3Files_array as $song_id) //loop over values
     {
       $song_url = wp_get_attachment_url($song_id);
-
       $post_thumbnail_id = get_post_thumbnail_id($song_id);
-
 
       // lookup each song's url path by replacing url path with folder path
         $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
@@ -238,7 +236,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
       // check if post exists by search for one with the same title
       $searchArgs = array(
-        'post_title_like' => $title
+        'post_title_like' => $title,
+        'post_type_like' => $post_type,
       );
       $titleSearchResult = new WP_Query($searchArgs);
 
@@ -254,10 +253,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         // Insert the post!!
         $postID = wp_insert_post($my_post);
 
-        if ($typeofpost == '2') {
-          // set post type
-          set_post_type($postID, "songs");
-        }
+        // set post type
+        set_post_type($postID, $post_type);
 
         //set post tags
         wp_set_post_tags($postID, $comment);
@@ -311,25 +308,6 @@ function testcommentsforvalid($comment) {
     } else {
       return true;
     }
-}
-
-/**
- * Gives an array of mp3 files to turn in to posts
- *
- * @param $folderPath
- *
- * @return $array
- *  Returns an array of mp3 file names from the directory created by the plugin
- */
-function mp3_array($folderPath){
-  // scan folders for files and get id3 info
-  $mp3Files = array_slice(scandir($folderPath), 2); // cut out the dots..
-  // filter out all the non mp3 files
-  $mp3Files = array_filter($mp3Files, "mp3_only");
-  // sort the files
-  sort($mp3Files);
-
-  return $mp3Files;
 }
 
 add_action('admin_enqueue_scripts', 'my_admin_scripts');
