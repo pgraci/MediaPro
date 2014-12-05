@@ -249,7 +249,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     } else {
       $the_playlist_array = array(
         'title' => $title,
-        'mp3' => $post_type,
+        'mp3' => $song_url,
       );
 
       //if playlist push each array into array
@@ -290,7 +290,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         if ($post_type == 'songs') {
           // TODO set artist for songs posts
-          add_post_meta($postID, "playlist", $the_playlist_array);            
+          add_post_meta($postID, "playlist", $the_playlist_array);
         }
 
         //set post tags
