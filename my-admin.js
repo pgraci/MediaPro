@@ -16,10 +16,11 @@ jQuery(document).ready(function($){
 
         //Extend the wp.media object
         custom_uploader = wp.media.frames.file_frame = wp.media({
-            title: 'Process Media Library Custom Shit',
+            title: 'Upload or Select songs from your library',
             button: {
                 text: 'Select Songs'
             },
+            library: { type : 'audio'},
             multiple: true
         });
 
