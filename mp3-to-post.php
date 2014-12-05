@@ -148,11 +148,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath)
     {
       $song_url = wp_get_attachment_url($song_id);
 
-      echo $song_url . "<hr>";
-
       $post_thumbnail_id = get_post_thumbnail_id($song_id);
-
-      echo $post_thumbnail_id . "<hr>";
 
 
       // lookup each song's url path by replacing url path with folder path
@@ -253,6 +249,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath)
 
         //set post tags
         wp_set_post_tags($postID, $comment);
+
+        //set featured image
+        set_post_thumbnail($postID, $post_thumbnail_id);
 
         // If the category/genre is set then update the post
         if(!empty($category)){
