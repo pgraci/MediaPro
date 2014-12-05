@@ -61,13 +61,13 @@ function song_admin() {
     <form method="post" action="">
 
       <p>select type of post - blog, remix song, or podcast</p>
-      <select name="type_of_post">
+      <select id="type_of_post" name="type_of_post">
         <option value="1">Blog Post</option>
         <option value="2">Song Post</option>
       </select>
       <br />
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
-      <input id="posts_ids"name="posts_ids" type="hidden" size="36" value="" />
+      <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
     </form>
     <?php
     // create post!
