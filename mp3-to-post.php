@@ -215,27 +215,27 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
       if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
         // try to get the next comments array which should have the proper data.
         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
-        $comment_ary = explode(" ", $comment);
+        //$comment_ary = explode(" ", $comment);
       }
-
-
-      if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
-        // try to get the next comments array which should have the proper data.
-        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
-        $comment_ary = explode(" ", $comment);
-      }
-
-      if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
-        // try to get the next comments array which should have the proper data.
-        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
-        $comment_ary = explode(" ", $comment);
-      }
-
-      if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
-        // try to get the next comments array which should have the proper data.
-        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][4];
-        $comment_ary = explode(" ", $comment);
-      }
+      //
+      //
+      // if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
+      //   // try to get the next comments array which should have the proper data.
+      //   $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
+      //   $comment_ary = explode(" ", $comment);
+      // }
+      //
+      // if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
+      //   // try to get the next comments array which should have the proper data.
+      //   $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+      //   $comment_ary = explode(" ", $comment);
+      // }
+      //
+      // if ((count($comment_ary) == 10)||(count($comment_ary))== 12) {
+      //   // try to get the next comments array which should have the proper data.
+      //   $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][4];
+      //   $comment_ary = explode(" ", $comment);
+      // }
 
     // check if we have a title and a comment
     if ($title && $comment){
