@@ -218,7 +218,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
       }
 
 
-      if ((count($comment_ary) == 12) && (strlen($comment_ary[0] == 8)) && (strlen($comment_ary[1] == 8))) {
+      if (count($comment_ary) == 12) {
     //   // try to get the next comments array which should have the proper data.
         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
       }
