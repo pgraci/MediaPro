@@ -203,38 +203,34 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
     $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
 
-    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+    $comment0 = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+    $comment1 = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+    $comment2 = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
+    $comment3 = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
 
-    echo "0: " . $comment . "<hr>";
-    // test to see if comment retrieved is actually itunes normalization / gapless playback hex codes
+    echo "0: " . $comment0 . "<hr>";
+    echo "1: " . $comment1 . "<hr>";
+    echo "2: " . $comment2 . "<hr>";
+    echo "3: " . $comment3 . "<hr>";
 
-    // it may be empty or 0 or 0&#0;&#0;
+    if (testcommentsforvalid($comment0)) {
+      $comment = $comment0;
+    } elseif (testcommentsforvalid($comment1)) {
+      $comment = $comment1;
+    } elseif (testcommentsforvalid($comment2)) {
+      $comment = $comment2;
+    } elseif (testcommentsforvalid($comment3)) {
+      $comment = $comment3;
+    } else {
+      $comment = "wtf";
+    }
 
-       $comment_ary = explode(" ", $comment);
-      //
-      // // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
-      // // http://id3.org/iTunes%20Normalization%20settings
-      //
-     if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment=='')||($comment==0)||($comment=='0&#0;&#0;')) {
-       // try to get the next comments array which should have the proper data.
-       $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
-       $comment_ary = explode(" ", $comment);
-       echo "1: " . $comment . "<hr>";
-
-       if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment=='')||($comment==0)||($comment=='0&#0;&#0;')) {
-         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
-         $comment_ary = explode(" ", $comment);
-         echo "2: " . $comment . "<hr>";
-         
-              if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment=='')||($comment==0)||($comment=='0&#0;&#0;')) {
-                $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
-                echo "3: " . $comment . "<hr>";
-              }
-       }
-
-
-     }
-
+testcommentsforvalid
+     //
+    //  if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment='')||($comment==0)||($comment=='0&#0;&#0;')) {
+    //    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+    //    echo "3: " . $comment . "<hr>";
+    //  }
 
 
 
@@ -294,6 +290,21 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 }
 
 
+function testcommentsforvalid($comment) {
+  $comment_ary = explode(" ", $comment);
+
+  // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
+  // http://id3.org/iTunes%20Normalization%20settings
+  //
+
+    if (($comment=='0&#0;&#0;')||empty($comment)) {
+      return false;
+    } elseif ((count($comment_ary) == 10)||(count($comment_ary)== 12)) {
+       return false;
+    } else {
+      return true;
+    }
+}
 
 /**
  * Gives an array of mp3 files to turn in to posts
