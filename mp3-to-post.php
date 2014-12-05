@@ -199,9 +199,9 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
 
-    // $comments_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
-    $comments_array_sorted = sort($ThisFileInfo['tags_html']['id3v2']['comments']);
-    var_dump($comments_array_sorted);
+    $comments_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
+    sort($comments_array);
+    var_dump($comments_array);
 
 
     //$comment = $comments_array[0];
