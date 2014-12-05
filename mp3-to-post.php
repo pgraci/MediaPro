@@ -220,7 +220,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
       $comment = "";
     }
 
-    $description = "<p>[playlist ids=" . . "]</p>" . $description;
+    $description = "<p>[playlist ids=" . $list_of_ids . "]</p>" . $description;
 
 
     // check if we have a title
