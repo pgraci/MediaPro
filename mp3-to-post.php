@@ -256,7 +256,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
       //if playlist push each array into array
 
-      $varplaylistarray = serialize($the_playlist_array);
+      //$varplaylistarray = serialize($the_playlist_array);
 
       echo $varplaylistarray . "<hr>";
 
@@ -294,7 +294,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         if ($post_type == 'songs') {
           // TODO set artist for songs posts
-          add_post_meta($postID, "playlist", $varplaylistarray);
+          add_post_meta($postID, "playlist", $the_playlist_array);
         }
 
         //set post tags
