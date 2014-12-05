@@ -136,16 +136,20 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath) {
   $messages = array();
   $mp3Files = array();
 
   // get an array of mp3 files
   //$mp3Files = mp3_array($folderPath);
 
-  $mp3Files_array = explode(',', $list_of_urls); //split string into array seperated by ', '
-    foreach($mp3Files_array as $song_url) //loop over values
+  $mp3Files_array = explode(',', $list_of_ids); //split string into array seperated by ', '
+    foreach($mp3Files_array as $song_id) //loop over values
     {
+      $song_url = wp_get_attachment_url($song_id);
+      $post_thumbnail_id = get_post_thumbnail_id($song_id);
+
+
       // lookup each song's url path by replacing url path with folder path
         $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
 

@@ -32,7 +32,7 @@ jQuery(document).ready(function($){
             var selection = custom_uploader.state().get('selection').toJSON();
               for (var key in selection) {
                 if (selection.hasOwnProperty(key)) {
-                  all_the_ids.push(selection[key].url);
+                  all_the_ids.push(selection[key].id);
                 }
               }
 
