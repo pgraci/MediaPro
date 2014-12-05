@@ -220,9 +220,11 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
       $comment = "";
     }
 
+    $description = "<p>[playlist ids=" . . "]</p>" . $description;
 
-    // check if we have a title and a comment
-    if ($title && $comment){
+
+    // check if we have a title
+    if ($title){
 
       // check if post exists by search for one with the same title
       // filtering by song name not working
