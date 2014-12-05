@@ -59,6 +59,16 @@ function song_admin() {
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
     ?>
     <form method="post" action="">
+
+      <p>select type of post - blog, remix song, or podcast</p>
+      <?php
+      $post_types = get_post_types( '', 'names' );
+
+        foreach ( $post_types as $post_type ) {
+
+           echo '<p>' . $post_type . '</p>';
+        }
+        ?>
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids"name="posts_ids" type="hidden" size="36" value="" />
     </form>
