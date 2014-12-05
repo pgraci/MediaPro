@@ -147,6 +147,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath)
     foreach($mp3Files_array as $song_id) //loop over values
     {
       $song_url = wp_get_attachment_url($song_id);
+
+      echo $song_url . "<hr>";
+
       $post_thumbnail_id = get_post_thumbnail_id($song_id);
 
 
