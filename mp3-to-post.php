@@ -256,7 +256,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         if ($typeofpost == '2') {
           // set post type
-          set_post_type($post_id, "songs");
+          set_post_type($postID, "songs");
         }
 
         //set post tags
