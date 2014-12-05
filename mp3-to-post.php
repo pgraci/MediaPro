@@ -147,12 +147,14 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
   $messages = array();
   $mp3Files = array();
 
-  // get an array of mp3 files
-  //$mp3Files = mp3_array($folderPath);
-
   $mp3Files_array = explode(',', $list_of_ids); //split string into array seperated by ', '
     foreach($mp3Files_array as $song_id) //loop over values
     {
+
+    // get url of song
+    // get image id of attached featured image
+    // also get the original description and use that if nothing else present
+
       $song_url = wp_get_attachment_url($song_id);
       $post_thumbnail_id = get_post_thumbnail_id($song_id);
 
@@ -192,18 +194,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     // if not use id3v1 tags
     // for itunes purchases, make sure to use other field names
 
-    // get image id of attached image
-    // switch to passing IDs and get URL and img from that
-    // also get the original description and use that if nothing else present
-
-
-
-    /*
-      Optional: copies data from all subarrays of [tags] into [comments] so
-      metadata is all available in one location for all tag formats
-      metainformation is always available under [tags] even if this is not called
-     */
-    //getid3_lib:($ThisFileInfo);
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
@@ -235,6 +225,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     if ($title && $comment){
 
       // check if post exists by search for one with the same title
+      // filtering by song name not working
       $searchArgs = array(
         'post_title_like' => $title,
         'post_type_like' => $post_type,
