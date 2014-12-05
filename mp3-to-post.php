@@ -208,11 +208,6 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $comment2 = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
     $comment3 = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
 
-    echo "0: " . $comment0 . "<hr>";
-    echo "1: " . $comment1 . "<hr>";
-    echo "2: " . $comment2 . "<hr>";
-    echo "3: " . $comment3 . "<hr>";
-
     if (testcommentsforvalid($comment0)) {
       $comment = $comment0;
     } elseif (testcommentsforvalid($comment1)) {
@@ -222,15 +217,8 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     } elseif (testcommentsforvalid($comment3)) {
       $comment = $comment3;
     } else {
-      $comment = "wtf";
+      $comment = "";
     }
-
-     //
-    //  if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment='')||($comment==0)||($comment=='0&#0;&#0;')) {
-    //    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
-    //    echo "3: " . $comment . "<hr>";
-    //  }
-
 
 
     // check if we have a title and a comment
