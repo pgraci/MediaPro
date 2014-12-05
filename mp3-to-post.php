@@ -205,10 +205,11 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
 
+    echo "0: " . $comment . "<hr>";
     // test to see if comment retrieved is actually itunes normalization / gapless playback hex codes
 
     // it may be empty or 0 or 0&#0;&#0;
-  
+
        $comment_ary = explode(" ", $comment);
       //
       // // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
@@ -218,15 +219,18 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
        // try to get the next comments array which should have the proper data.
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
        $comment_ary = explode(" ", $comment);
+       echo "1: " . $comment . "<hr>";
      }
 
      if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment='')||($comment==0)||($comment=='0&#0;&#0;')) {
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
        $comment_ary = explode(" ", $comment);
+       echo "2: " . $comment . "<hr>";
      }
 
      if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment='')||($comment==0)||($comment=='0&#0;&#0;')) {
        $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+       echo "3: " . $comment . "<hr>";
      }
 
 
