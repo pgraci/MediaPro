@@ -176,6 +176,18 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $filePath = $mp3Files[$i];
     $ThisFileInfo = $getID3->analyze($filePath);
 
+
+    // TODOS
+    // check to see if it has idv2 tags if so use them
+    // if not use id3v1 tags
+    // for itunes purchases, make sure to use other field names
+
+    // get image id of attached image
+    // switch to passing IDs and get URL and img from that
+    // also get the original description and use that if nothing else present
+
+
+
     /*
       Optional: copies data from all subarrays of [tags] into [comments] so
       metadata is all available in one location for all tag formats
@@ -186,6 +198,11 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+    $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
+    $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
+    $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
+    $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
+    $album_artist = "test, " . $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
     // test to see if comment retrieved is actually itunes normalization
 
      $comment_ary = explode(" ", $comment);
