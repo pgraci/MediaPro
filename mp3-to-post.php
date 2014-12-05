@@ -198,12 +198,6 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
-
-    $comments_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
-    ksort($comments_array);
-    var_dump($ThisFileInfo['tags_html']['id3v2']['comments']);
-    $comment = $comments_array[0];
-
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
     $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
     $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
@@ -211,37 +205,29 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
     // test to see if comment retrieved is actually itunes normalization
 
-    //  $comment_ary = explode(" ", $comment);
+     $comment_ary = explode(" ", $comment);
     //
-    //  //$comment = count($comment_ary);
     //
     // // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
     // // http://id3.org/iTunes%20Normalization%20settings
     //
-    //   if ((count($comment_ary) == 10)||(count($comment_ary)== 12)) {
-    //     // try to get the next comments array which should have the proper data.
-    //     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
-    //     $comment_ary = explode(" ", $comment);
-    //   }
-    //
-    //
-    //   if ((count($comment_ary) == 10)||(count($comment_ary)== 12)) {
-    //     // try to get the next comments array which should have the proper data.
-    //     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
-    //     $comment_ary = explode(" ", $comment);
-    //   }
-    //
-    //   if ((count($comment_ary) == 10)||(count($comment_ary)== 12)) {
-    //     // try to get the next comments array which should have the proper data.
-    //     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
-    //     $comment_ary = explode(" ", $comment);
-    //   }
-    //
-    //   if ((count($comment_ary) == 10)||(count($comment_ary)== 12)) {
-    //     // try to get the next comments array which should have the proper data.
-    //     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][4];
-    //     $comment_ary = explode(" ", $comment);
-    //   }
+    if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment==0)||($comment=='0&#0;&#0;')) {
+         // try to get the next comments array which should have the proper data.
+         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+         $comment_ary = explode(" ", $comment);
+       }
+
+
+       if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment==0)||($comment=='0&#0;&#0;')) {
+         // try to get the next comments array which should have the proper data.
+         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
+         $comment_ary = explode(" ", $comment);
+       }
+
+       if ((count($comment_ary) == 10)||(count($comment_ary)== 12)||($comment==0)||($comment=='0&#0;&#0;')) {
+         // try to get the next comments array which should have the proper data.
+         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+       }
 
     // check if we have a title and a comment
     if ($title && $comment){
