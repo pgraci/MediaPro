@@ -66,13 +66,21 @@ function song_admin() {
         <option value="songs">Song Post</option>
       </select>
       <br />
+
+      <p>post mode</p>
+      <select id="post_mode" name="post_mode">
+        <option value="1">Create a post from each selected song</option>
+        <option value="2">Creae an Album/Complilation/Playlist</option>
+      </select>
+      <br />
+
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
     </form>
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $_POST['type_of_post']));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $_POST['type_of_post'], $_POST['post_mode']));
 
       $arrlength = count($songs_array);
 
@@ -143,7 +151,7 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode) {
   $messages = array();
   $mp3Files = array();
 
@@ -177,7 +185,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
   // loop through all the files and create posts
   $i = 0;
-  if ($limit == 'all') {
+  if ($posting_mode = '1') {
     $limit = count($mp3Files) - 1;
   } else {
     $limit--; // subtract one to work with arrays
@@ -195,6 +203,16 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     // for itunes purchases, make sure to use other field names
 
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
+    $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
+
+    if ($posting_mode = '2') {
+      $title = $title;
+    } else {
+      $title = $album;
+    }
+
+
+
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
@@ -220,7 +238,13 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
       $comment = "";
     }
 
-    $description = "<p>[playlist ids=" . $list_of_ids . "]</p>" . $description;
+    if ($posting_mode = '1') {
+      $playlist_ids = $song_id;
+    } else {
+      $playlist_ids = $list_of_ids;
+    }
+
+    $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
 
 
     // check if we have a title
@@ -248,6 +272,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         // set post type
         set_post_type($postID, $post_type);
+
+        // TODO set artist for songs
 
         //set post tags
         wp_set_post_tags($postID, $comment);
