@@ -244,7 +244,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
           $playlist_ids = $song_id;
         } else {
           $playlist_ids = $list_of_ids;
-        }  
+        }
 
         $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
 
@@ -294,7 +294,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         if ($post_type == 'songs') {
           // TODO set artist for songs posts
-          add_post_meta($postID, "playlist", $the_playlist_array);
+          add_post_meta($postID, "playlist", $varplaylistarray);
         }
 
         //set post tags
