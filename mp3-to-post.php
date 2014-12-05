@@ -72,7 +72,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path']));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $_POST['type_of_post']));
 
       $arrlength = count($songs_array);
 
@@ -143,7 +143,7 @@ function mp3_only($filename) {
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $typeofpost) {
   $messages = array();
   $mp3Files = array();
 
@@ -253,6 +253,11 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath)
         );
         // Insert the post!!
         $postID = wp_insert_post($my_post);
+
+        if ($typeofpost == 2) {
+          // set post type
+          set_post_type($post_id, "songs");
+        }
 
         //set post tags
         wp_set_post_tags($postID, $comment);
