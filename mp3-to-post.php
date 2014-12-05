@@ -197,7 +197,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
-    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+    $comment = ksort($ThisFileInfo['tags_html']['id3v2']['comments']);
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
     $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
     $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
@@ -236,6 +236,9 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
         $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][4];
         $comment_ary = explode(" ", $comment);
       }
+
+    $comment = $comment[0];
+
 
     // check if we have a title and a comment
     if ($title && $comment){
