@@ -185,7 +185,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
   // loop through all the files and create posts
   $i = 0;
-  if ($posting_mode = '1') {
+  if ($posting_mode == '1') {
     $limit = count($mp3Files) - 1;
   } else {
     $limit--; // subtract one to work with arrays
@@ -205,7 +205,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
 
-    if ($posting_mode = '2') {
+    if ($posting_mode == '2') {
       $title = $title;
     } else {
       $title = $album;
@@ -238,7 +238,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
       $comment = "";
     }
 
-    if ($posting_mode = '1') {
+    if ($posting_mode == '1') {
       $playlist_ids = $song_id;
     } else {
       $playlist_ids = $list_of_ids;
