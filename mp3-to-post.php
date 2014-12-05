@@ -197,7 +197,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
-    $comment = "tester, " . $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+    $comment = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
     $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
     $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
@@ -206,6 +206,8 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     // test to see if comment retrieved is actually itunes normalization
 
      $comment_ary = explode(" ", $comment);
+
+     $comment = count($comment_ary);
 
     // check to see if there are 10 elements to the array, and if the first 3 are 8 chars in length
     // http://id3.org/iTunes%20Normalization%20settings
