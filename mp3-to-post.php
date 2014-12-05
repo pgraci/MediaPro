@@ -206,9 +206,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
 
     if ($posting_mode == '2') {
-      $title = $title;
-    } else {
       $title = $album;
+    } else {
+      $title = $title;
     }
 
 
