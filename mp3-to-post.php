@@ -269,7 +269,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
       //loop thru all files and push each array into array_final key is numeric placement of track
 
-      $$the_playlist_array_final = array(
+      $the_playlist_array_final = array(
         '0' => $the_playlist_array,
       );
 
