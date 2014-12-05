@@ -201,10 +201,8 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
     $comments_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
     ksort($comments_array);
+    var_dump($comments_array);
     $comment = $comments_array[0];
-
-
-    //$comment = $comments_array[0];
 
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
     $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
