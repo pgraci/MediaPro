@@ -238,11 +238,26 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
       $comment = "";
     }
 
-    if ($posting_mode == '1') {
-      $playlist_ids = $song_id;
+    if ($post_type == 'post') {
+
+        if ($posting_mode == '1') {
+          $playlist_ids = $song_id;
+        } else {
+          $playlist_ids = $list_of_ids;
+        }
+
     } else {
-      $playlist_ids = $list_of_ids;
+      $the_playlist_array = array(
+        'title' => $title,
+        'mp3' => $post_type,
+      );
+
+      //if playlist push each array into array
+
+      serialize($the_playlist_array);
     }
+
+
 
     $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
 
@@ -273,7 +288,10 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         // set post type
         set_post_type($postID, $post_type);
 
-        // TODO set artist for songs
+        if ($post_type == 'songs') {
+          // TODO set artist for songs posts
+          add_post_meta($postID, "playlist", $the_playlist_array);            
+        }
 
         //set post tags
         wp_set_post_tags($postID, $comment);
