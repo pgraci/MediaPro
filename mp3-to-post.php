@@ -254,7 +254,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         // Insert the post!!
         $postID = wp_insert_post($my_post);
 
-        if ($typeofpost == 2) {
+        if ($typeofpost == '2') {
           // set post type
           set_post_type($post_id, "songs");
         }
