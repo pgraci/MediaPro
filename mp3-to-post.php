@@ -266,7 +266,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         'buy_link_d' => '',
       )
 
-            echo $the_playlist_array . "<hr>";
+      //echo $the_playlist_array . "<hr>";
 
       //if playlist push each array into array
 
