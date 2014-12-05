@@ -152,6 +152,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath)
 
       $post_thumbnail_id = get_post_thumbnail_id($song_id);
 
+      echo $post_thumbnail_id . "<hr>";
+
 
       // lookup each song's url path by replacing url path with folder path
         $song_diskpath = str_replace($urlPath,$folderPath,$song_url);
