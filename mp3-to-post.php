@@ -201,6 +201,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
     // check to see if it has idv2 tags if so use them
     // if not use id3v1 tags
     // for itunes purchases, make sure to use other field names
+    // allow user to insert songs / playlist into existing post!
 
     $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
     $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
@@ -266,11 +267,14 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         'buy_link_d' => '',
       );
 
-      echo $the_playlist_array . "<hr>";
-
       //if playlist push each array into array
 
-      //$varplaylistarray = serialize($the_playlist_array);
+      $varplaylistarray = serialize($the_playlist_array);
+
+      var_dump($varplaylistarray);
+
+      echo "<hr>";
+
 
     }
 
@@ -306,7 +310,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         if ($post_type == 'songs') {
           // TODO set artist for songs posts
-          add_post_meta($postID, "playlist", $the_playlist_array);
+          add_post_meta($postID, "playlist", $varplaylistarray);
         }
 
         //set post tags
