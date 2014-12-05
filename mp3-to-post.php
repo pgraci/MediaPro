@@ -267,12 +267,15 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
         'buy_link_d' => '',
       );
 
-      //if playlist push each array into array
+      //loop thru all files and push each array into array_final key is numeric placement of track
 
-      $varplaylistarray = serialize($the_playlist_array);
+      $$the_playlist_array_final = array(
+        '0' => $the_playlist_array,
+      )
+
+      $varplaylistarray = serialize($the_playlist_array_final);
 
       print_r($varplaylistarray);
-
       echo "<hr>";
 
 
