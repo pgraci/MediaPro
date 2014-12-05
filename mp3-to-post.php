@@ -201,7 +201,7 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
 
     $comments_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
     $comments_array_sorted = ksort($comments_array);
-    var_dump($comments_array);
+    var_dump($comments_array_sorted);
 
 
     //$comment = $comments_array[0];
