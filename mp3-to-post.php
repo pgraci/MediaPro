@@ -198,11 +198,6 @@ function audio_to_song_post($limit = 'all', $list_of_urls, $folderPath, $urlPath
     $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
     $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
     $comment = $ThisFileInfo['tags_html']['id3v2']['comments'];
-
-    $comments_original_array = sort($comment);
-
-    $comment = $comments_original_array[0];
-
     $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
     $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
     $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
