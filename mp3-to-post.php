@@ -271,7 +271,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
       $varplaylistarray = serialize($the_playlist_array);
 
-      var_dump($varplaylistarray);
+      print_r($varplaylistarray);
 
       echo "<hr>";
 
