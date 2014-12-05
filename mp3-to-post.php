@@ -244,7 +244,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
           $playlist_ids = $song_id;
         } else {
           $playlist_ids = $list_of_ids;
-        }
+        }  
+
+        $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
 
     } else {
       $the_playlist_array = array(
@@ -262,7 +264,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-    $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
 
 
     // check if we have a title
