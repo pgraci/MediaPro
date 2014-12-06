@@ -188,7 +188,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               // allow user to insert songs / playlist into existing post!
               // create artist pages
               // move playlist insertion logic for remix into seperate routine
-              // fix lookup of song names
+
 
               $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
               $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
@@ -289,20 +289,27 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                     // TODO set artist for songs posts
                     add_post_meta($postID, "playlist", $the_playlist_array_final);
 
-                    // If the category/genre is set then update the post
-                    if(!empty($category)){
-                      $category_ID = get_cat_ID($category);
-                      // if a category exists
-                      if($category_ID) {
-                        $categories_array = array($category_ID);
-                        wp_set_post_categories($postID, $categories_array);
-                      }
-                      // if it doesn't exist then create a new category
-                      else {
-                        $new_category_ID = wp_create_category($category);
-                        $categories_array = array($new_category_ID);
-                        wp_set_post_categories($postID, $categories_array);
-                      }
+                    // If the artist is set try to find matching artist page
+                    // create new artist page if option chosen
+                    if(!empty($artist)){
+
+                        $searchArgs = array(
+                          'post_title_like' => $artist,
+                          'post_type' => 'artists',
+                        );
+
+                        $artistSearchResult = new WP_Query($searchArgs);
+
+                        if ($artistSearchResult->post_count == 0) {
+                          array_push($messages, _e('no artist page for: ' . $artist, 'audio-to-song-post'));
+                            // create new artist
+                        } else {
+                            // get artist id
+                            array_push($messages, _e('artist id: ' . $artistSearchResult->id, 'audio-to-song-post'));
+                        }
+
+                        // update song post with artist name
+
                     }
                   }
 
