@@ -305,7 +305,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                             // create new artist
                         } else {
                             // get artist id
-                            array_push($messages, _e('artist id: ' . $artistSearchResult->id, 'audio-to-song-post'));
+                          array_push($messages, _e('artist id: ' . $artistSearchResult->ID, 'audio-to-song-post'));
                         }
 
                         // update song post with artist name
