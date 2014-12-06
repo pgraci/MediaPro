@@ -288,6 +288,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   if ($post_type == 'songs') {
                     // TODO set artist for songs posts
                     add_post_meta($postID, "playlist", $the_playlist_array_final);
+                    add_post_meta($postID, "auto_play", false);
+
 
                     // If the artist is set try to find matching artist page
                     // create new artist page if option chosen
