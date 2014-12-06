@@ -196,8 +196,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $title = $title;
               }
 
-
-
               $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
               $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
               $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
@@ -206,22 +204,34 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
 
-              $comment0 = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
-              $comment1 = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
-              $comment2 = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
-              $comment3 = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+              $comment_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
 
-              if (testcommentsforvalid($comment0)) {
-                $comment = $comment0;
-              } elseif (testcommentsforvalid($comment1)) {
-                $comment = $comment1;
-              } elseif (testcommentsforvalid($comment2)) {
-                $comment = $comment2;
-              } elseif (testcommentsforvalid($comment3)) {
-                $comment = $comment3;
-              } else {
-                $comment = "";
+              foreach($comment_array as $comment_value) //loop over values
+              {
+                if (testcommentsforvalid($comment_value)) {
+                  $comment = $comment_value;
+                  continue;
+                } else {
+                  $comment = "";
+                }
               }
+
+              // $comment0 = $ThisFileInfo['tags_html']['id3v2']['comments'][0];
+              // $comment1 = $ThisFileInfo['tags_html']['id3v2']['comments'][1];
+              // $comment2 = $ThisFileInfo['tags_html']['id3v2']['comments'][2];
+              // $comment3 = $ThisFileInfo['tags_html']['id3v2']['comments'][3];
+
+              // if (testcommentsforvalid($comment0)) {
+              //   $comment = $comment0;
+              // } elseif (testcommentsforvalid($comment1)) {
+              //   $comment = $comment1;
+              // } elseif (testcommentsforvalid($comment2)) {
+              //   $comment = $comment2;
+              // } elseif (testcommentsforvalid($comment3)) {
+              //   $comment = $comment3;
+              // } else {
+              //   $comment = "";
+              // }
 
               if ($post_type == 'post') {
 
@@ -314,9 +324,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   }
 
 
-                  array_push($messages, _e('<p>Post created: '  . $title . '</p>', 'audio-to-song-post'));
+                  array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'audio-to-song-post'));
                 } else {
-                  array_push($messages, _e('<p>Post already exists: ' . $title . '</p>', 'audio-to-song-post'));
+                  array_push($messages, _e('<p>' . $post_type . ' already exists: ' . $title . '</p>', 'audio-to-song-post'));
                 }
               } else {
                 array_push($messages, _e('Title not set in the ID3 information.   Make sure it is set for v1 and v2.', 'audio-to-song-post'));
