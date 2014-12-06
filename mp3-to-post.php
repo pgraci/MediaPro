@@ -301,14 +301,26 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                         $artistSearchResult = new WP_Query($searchArgs);
 
                         if ($artistSearchResult->post_count == 0) {
-                          array_push($messages, _e('no artist page for: ' . $artist, 'audio-to-song-post'));
                             // create new artist
+                            $artist_page_post = array(
+                              'post_title' => $artist,
+                              'post_content' => "bio coming soon...",
+                              'post_author' => 1,
+                              'post_name' => $artist,
+                            );
+                            // Insert the post!!
+                            $artist_page_id = wp_insert_post($artist_page_post);
+
+                            // set post type
+                            set_post_type($artist_page_id, "artists");
+
                         } else {
                             // get artist id
-                          array_push($messages, _e('artist id: ' . $artistSearchResult->post->ID, 'audio-to-song-post'));
+                            $artist_page_id = $artistSearchResult->post->ID;
                         }
 
-                        // update song post with artist name
+                        // update song post with artist id
+                        add_post_meta($postID, "artist_nameaa", $artist_page_id);
 
                     }
                   }
