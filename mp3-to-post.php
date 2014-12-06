@@ -70,7 +70,7 @@ function song_admin() {
       <p>post mode</p>
       <select id="post_mode" name="post_mode">
         <option value="1">Create a post from each selected song</option>
-        <option value="2">Creae an Album/Complilation/Playlist</option>
+        <option value="2">Create an Album/Complilation/Playlist</option>
       </select>
       <br />
 
@@ -199,12 +199,13 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $title = $title;
               }
 
+              $artist = $ThisFileInfo['tags_html']['id3v2']['artist'][0];
+              $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
               $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
               $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
               $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
               $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
-              $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
 
               $comment_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
@@ -266,7 +267,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'post_title_like' => $title,
                   'post_type' => $post_type,
                 );
-                
+
                 $titleSearchResult = new WP_Query($searchArgs);
 
                 // If there are no posts with the title of the mp3 then make the post
@@ -287,7 +288,25 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   if ($post_type == 'songs') {
                     // TODO set artist for songs posts
                     add_post_meta($postID, "playlist", $the_playlist_array_final);
+
+                    // If the category/genre is set then update the post
+                    if(!empty($category)){
+                      $category_ID = get_cat_ID($category);
+                      // if a category exists
+                      if($category_ID) {
+                        $categories_array = array($category_ID);
+                        wp_set_post_categories($postID, $categories_array);
+                      }
+                      // if it doesn't exist then create a new category
+                      else {
+                        $new_category_ID = wp_create_category($category);
+                        $categories_array = array($new_category_ID);
+                        wp_set_post_categories($postID, $categories_array);
+                      }
+                    }
                   }
+
+
 
                   //set post tags
                   wp_set_post_tags($postID, $comment);
