@@ -62,15 +62,40 @@ function song_admin() {
 
       <p>select type of post - blog, remix song, or podcast</p>
       <select id="type_of_post" name="type_of_post">
+        <option value="songs">REMIX Song Post</option>
         <option value="post">Blog Post</option>
-        <option value="songs">Song Post</option>
       </select>
       <br />
 
-      <p>post mode</p>
+      <p>posting mode</p>
       <select id="post_mode" name="post_mode">
         <option value="1">Create a post from each selected song</option>
-        <option value="2">Create an Album/Complilation/Playlist</option>
+        <option value="2">Create a single post with playlist of tracks</option>
+      </select>
+      <br />
+
+      <p>title</p>
+      <select id="title_mode" name="title_mode">
+        <option value="1">from Title</option>
+        <option value="2">from Album</option>
+        <option value="3">Artist - Title</option>
+      </select>
+      <br />
+
+      <p>description</p>
+      <select id="description_mode" name="description_mode">
+        <option value="1">from Comments</option>
+        <option value="2">from Description</option>
+        <option value="3">Comments + Description</option>
+        <option value="3">Comments + Description + Genre + BPM</option>
+      </select>
+      <br />
+
+      <p>tags</p>
+      <select id="tags_mode" name="tags_mode">
+        <option value="1">from Grouping</option>
+        <option value="2">from Comments</option>
+        <option value="3">from Description</option>
       </select>
       <br />
 
@@ -153,6 +178,7 @@ function mp3_only($filename) {
  */
 function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode) {
   $messages = array();
+  $the_playlist_array_final = array();
 
   // check of there are files to process
   if(count($list_of_ids) == 0){
@@ -186,8 +212,9 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               // if not use id3v1 tags
               // for itunes purchases, make sure to use other field names
               // allow user to insert songs / playlist into existing post!
-              // create artist pages
               // move playlist insertion logic for remix into seperate routine
+
+              // create array of song data to be processed
 
 
               $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
@@ -248,16 +275,13 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'buy_link_d' => '',
                 );
 
-                //loop thru all files and push each array into array_final key is numeric placement of track
-
-                $the_playlist_array_final = array(
-                  '0' => $the_playlist_array,
-                );
-
+                //for remix song playlists push this into
+                array_push($the_playlist_array_final, $the_playlist_array);
 
               }
 
               // check if we have a title
+              // proceed to make post if this works
               if ($title){
 
                 // check if post exists by search for one with the same title
@@ -287,6 +311,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
                   if ($post_type == 'songs') {
                     // TODO set artist for songs posts
+                    // don't insert playlist for playlist post
+
                     add_post_meta($postID, "playlist", $the_playlist_array_final);
                     add_post_meta($postID, "auto_play", 'false');
 
@@ -359,6 +385,10 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               } else {
                 array_push($messages, _e('Title not set in the ID3 information.   Make sure it is set for v1 and v2.', 'audio-to-song-post'));
               }
+
+
+              // do final playlist insert into post here for remix playlist songs
+
         }
   }
 
