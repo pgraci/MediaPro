@@ -293,7 +293,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               // check if we have a title
               // proceed to make post if this works
               if ($title){
-                  do_the_posting($title, $artist, $category, $post_type, $description, $the_playlist_array_final);
+                  do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final);
               } else {
                 array_push($messages, _e('Title not set in the ID3 information.   Make sure it is set for v1 and v2.', 'audio-to-song-post'));
               }
@@ -318,7 +318,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_type, $description, $the_playlist_array_final) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
