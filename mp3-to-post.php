@@ -53,6 +53,9 @@ function song_admin() {
 
   ?>
   <style>
+    fieldset {
+      padding: 10px;
+    }
     .mode_label {
       width: 100px;
       float: left;
