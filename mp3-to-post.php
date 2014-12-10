@@ -137,7 +137,7 @@ function song_admin() {
         <select id="description_mode" name="description_mode">
           <option value="1">from Comments</option>
           <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
-          <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>"Song Title" from "Album" by Artist. Released: Year. Genre: Genre. BPM: BPM. ISRC: ISRC</option>
+          <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>"Song Title" from "Album" by Artist. Year + Genre + BPM + ISRC</option>
         </select>
       </fieldset>
 
@@ -280,6 +280,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
               $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
+              $isrc = $ThisFileInfo['tags_html']['id3v2']['isrc'][0];
 
               $comment_array = $ThisFileInfo['tags_html']['id3v2']['comments'];
 
@@ -328,6 +329,22 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
               }
 
+              //remap artist to album artist
+              if ($artist_mode == '1') {
+                $artist = $album_artist;
+              }
+
+
+              //remap post content field
+              if ($description_mode == '1') {
+                $post_content = $comments;
+              }elseif ($description_mode == '2') {
+                $post_content = $description;
+              } elseif ($description_mode == '3') {
+                $post_content = '<p>"' . $title . '" from "' . $album . '" by ' . $artist . '</p><p>Released: ' . $released_year . '</p><p>Genre: ' . $category . '</p><p>BPM: ' . $bpm . '</p>';
+              }
+
+
               //remap post title field
               if ($title_mode == '2') {
                 $title = $album;
@@ -335,24 +352,18 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $title = $title . " - " . $artist;
               }
 
-              //remap post content field
-              if ($description_mode == '1') {
-                $post_content = $comments;
-              } elseif ($description_mode == '2') {
-                $post_content = $description;
-              }
 
               //remap post tags
-              if ($title_mode == '2') {
-                $post_tags = $album;
-              } elseif ($title_mode == '3') {
-                $post_tags = $title . " - " . $artist;
+              if ($tags_mode == '0') {
+                $post_tags = '';
+              } elseif ($tags_mode == '1') {
+                $post_tags = $grouping;
+              } elseif ($tags_mode == '2') {
+                $post_tags = $comments;
+              } elseif ($tags_mode == '3') {
+                $post_tags = $description;
               }
 
-              //remap artist to album artist
-              if ($artist_mode == '1') {
-                $artist = $album_artist;
-              }
 
                 $the_song_tags = array(
                   'title' => $title,
