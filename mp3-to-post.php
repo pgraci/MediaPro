@@ -124,22 +124,22 @@ function song_admin() {
       </fieldset>
 
       <fieldset>
-        <label class="mode_label" for="title_mode">Title</label>
+        <label class="mode_label" for="title_mode">Post Title</label>
         <select id="title_mode" name="title_mode">
           <option value="1">from Title</option>
           <option value="2" <?php if ($selected_title_mode=='2') {echo "selected";} ?>>from Album</option>
-          <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist - Title</option>
+          <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist + Song Title</option>
         </select>
       </fieldset>
 
       <fieldset>
-        <label class="mode_label" for="description_mode">Description</label>
+        <label class="mode_label" for="description_mode">Post Content</label>
         <select id="description_mode" name="description_mode">
           <option value="1">from Comments</option>
           <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
           <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>Comments + Description</option>
           <option value="4" <?php if ($selected_description_mode=='4') {echo "selected";} ?>>Comments + Description + Genre + BPM</option>
-          <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>from WordPress media description</option>
+          <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>"Song Title" from "Album" by Artist. Released: Year. Genre: Genre. ISRC: ISRC</option>
         </select>
       </fieldset>
 
@@ -182,7 +182,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode));
 
       $arrlength = count($songs_array);
 
@@ -228,7 +228,7 @@ add_filter('posts_where', 'title_like_posts_where', 10, 2);
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode) {
   $messages = array();
 
   // check of there are files to process
@@ -329,10 +329,12 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
               }
 
-              //remap fields
+              //remap post title field
 
-              if ($posting_mode == '2') {
+              if ($title_mode == '2') {
                 $title = $album;
+              } elseif ($title_mode == '3') {
+                $title = $title . " - " . $artist;
               }
 
 
@@ -463,6 +465,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
         wp_set_post_categories($postID, $categories_array);
       }
       // if it doesn't exist then create a new category
+      // TODO - make sure that its a word and not an number in parens ie (16)
       else {
         $new_category_ID = wp_create_category($category);
         $categories_array = array($new_category_ID);
