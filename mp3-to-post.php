@@ -386,8 +386,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
           }
 
-          // do final playlist insert into post here for remix playlist songs
-
   }
 
   // return the messages
@@ -429,6 +427,17 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
     //set featured image
     set_post_thumbnail($postID, $post_thumbnail_id);
+
+    $postdate = '2010-01-01 18:57:33';
+
+    // Update post date
+    $my_post_date = array(
+        'ID'           => $postID,
+        'post_date' => $postdate;
+    );
+
+    // Update the post into the database
+    wp_update_post( $my_post_date );
 
     // If the category/genre is set then update the post
     if(!empty($category)){
