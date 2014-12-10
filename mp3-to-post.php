@@ -119,7 +119,7 @@ function song_admin() {
         <label class="mode_label" for="date_mode">Post Date</label>
         <select id="date_mode" name="date_mode">
           <option value="0">Now</option>
-          <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date/Year</option>
+          <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Year</option>
         </select>
       </fieldset>
 
@@ -278,6 +278,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $description = $ThisFileInfo['tags_html']['id3v2']['subtitle'][0];
               $bpm = $ThisFileInfo['tags_html']['id3v2']['bpm'][0];
               $released_year = $ThisFileInfo['tags_html']['id3v2']['year'][0];
+              $created_date = $ThisFileInfo['tags_html']['id3v2']['creation_date'][0];
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
               $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
@@ -344,6 +345,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'description' => $description,
                   'the_playlist_array' => $the_playlist_array,
                   'year' => $released_year,
+                  'created_date' => $created_date;
                 );
 
               array_push($master_list, $the_song_tags);
@@ -368,7 +370,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
-              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $master_list[$i]['created_date']);
             }
 
           } else {
@@ -384,7 +386,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             // normalize lists of tags
 
             // post first song for now as the album
-            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $master_list[$i]['created_date']);
 
           }
 
@@ -397,7 +399,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $created_date) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
@@ -430,8 +432,9 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     //set featured image
     set_post_thumbnail($postID, $post_thumbnail_id);
 
-    if ($date_mode=='1') {
+    if ($date_mode=='1' && !empty($released_year)) {
       // try to get Created Date, otherwise use Year
+
 
       $postdate = $released_year . '-01-01 00:00:00';
 
