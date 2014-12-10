@@ -52,6 +52,10 @@ function song_admin() {
   require_once('getid3/getid3.php');
 
   ?>
+  <style>
+    label {width: 100px;}
+  </style>
+
   <div class="wrap">
     <h2>AudioPost</h2>
     <?php
@@ -61,7 +65,7 @@ function song_admin() {
     <form method="post" action="">
 
     <fieldset>
-      <label for="type_of_post">select type of post - blog, remix song, or podcast</label>
+      <label for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
         <option value="songs">REMIX Song Post</option>
         <option value="post">Blog Post</option>
@@ -69,7 +73,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="post_mode">posting mode</label>
+      <label for="post_mode">Post Mode</label>
       <select id="post_mode" name="post_mode">
         <option value="1">Create a post from each selected song</option>
         <option value="2">Create a single post with playlist of tracks</option>
@@ -77,7 +81,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="title_mode">title</label>
+      <label for="title_mode">Title Mode</label>
       <select id="title_mode" name="title_mode">
         <option value="1">from Title</option>
         <option value="2">from Album</option>
