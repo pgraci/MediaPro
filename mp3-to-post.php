@@ -178,24 +178,15 @@ function mp3_only($filename) {
  */
 function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode) {
   $messages = array();
-  $the_playlist_array_final = array();
-
-  $the_song_tags = array(
-    'title' => '',
-    'artist' => '',
-    'category' => '',
-    'post_thumbnail_id' => '',
-    'post_type' => '',
-    'description' => '',
-    'the_playlist_array' => '',
-  );
-
 
   // check of there are files to process
   if(count($list_of_ids) == 0){
     array_push($messages, _e('There are no files to process', 'audio-to-song-post'));
     return $messages;
   } else {
+
+
+      $the_song_tags_array_final = array();
 
       // Initialize getID3 engine
       $getID3 = new getID3;
@@ -301,7 +292,18 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
               }
 
-              array_push($the_song_tags, $title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array);
+
+                $the_song_tags = array(
+                  'title' => $title,
+                  'artist' => $artist,
+                  'category' => $category,
+                  'post_thumbnail_id' => $post_thumbnail_id,
+                  'post_type' => $post_type,
+                  'description' => $description,
+                  'the_playlist_array' => $the_playlist_array,
+                );
+
+              array_push($the_song_tags_array_final, $the_song_tags);
 
 
               // check if we have a title
@@ -318,12 +320,12 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
           if ($posting_mode == '1') {
             // loop array and make a post for each song
 
-            $song_limit = count($the_song_tags) - 1;
+            $song_limit = count($the_song_tags_array_final) - 1;
 
-            for ($i = 0; $i <  $song_limit; $i++) {
+            for ($i = 0; $i < $song_limit; $i++) {
 
-                  echo "<p>title: ".$the_song_tags['title'][$i]."</p>";
-                  echo "<p>artist: ".$the_song_tags['artist'][$i]."</p>";
+                  echo "<p>title: ".$the_song_tags_array_final[$i]['title']."</p>";
+                  echo "<p>artist: ".$the_song_tags_array_final[$i]['artist']."</p>";
             }
 
 
