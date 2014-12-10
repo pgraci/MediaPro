@@ -180,6 +180,17 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
   $messages = array();
   $the_playlist_array_final = array();
 
+  $the_song_tags = array(
+    'title' => '',
+    'artist' => '',
+    'category' => '',
+    'post_thumbnail_id' => '',
+    'post_type' => '',
+    'description' => '',
+    'the_playlist_array' => '',
+  );
+
+
   // check of there are files to process
   if(count($list_of_ids) == 0){
     array_push($messages, _e('There are no files to process', 'audio-to-song-post'));
@@ -286,29 +297,44 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 );
 
                 //for remix song playlists push this into
-                array_push($the_playlist_array_final, $the_playlist_array);
+                // array_push($the_playlist_array_final, $the_playlist_array);
 
               }
+
+              array_push($the_song_tags, $title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array);
+
 
               // check if we have a title
               // proceed to make post if this works
-              if ($title){
-                  do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final);
-              } else {
-                array_push($messages, _e('Title not set in the ID3 information.   Make sure it is set for v1 and v2.', 'audio-to-song-post'));
-              }
-
-              //if ($posting_mode == '1') {
-                // loop array and make a post for each song
-              //} else {
-                // loop array and make one post
-                // compile description
-                // normalize lists of tags
-              //}
-
-              // do final playlist insert into post here for remix playlist songs
+              // if ($title){
+              //     do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final);
+              // } else {
+              //   array_push($messages, _e('Title not set in the ID3 information.', 'audio-to-song-post'));
+              // }
 
         }
+
+
+          if ($posting_mode == '1') {
+            // loop array and make a post for each song
+
+            $song_limit = count($the_song_tags) - 1;
+
+            for ($i = 0; $i <  $song_limit; $i++) {
+
+                  echo "<p>title: ".$the_song_tags['title'][$i]."</p>";
+                  echo "<p>artist: ".$the_song_tags['artist'][$i]."</p>";
+            }
+
+
+          } else {
+            // loop array and make one post
+            // compile description
+            // normalize lists of tags
+          }
+
+          // do final playlist insert into post here for remix playlist songs
+
   }
 
   // return the messages
@@ -368,47 +394,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     }
 
     if ($post_type == 'songs') {
-      // TODO set artist for songs posts
-      // don't insert playlist for playlist post
-
-      add_post_meta($postID, "playlist", $the_playlist_array_final);
-      add_post_meta($postID, "auto_play", 'false');
-
-
-      // If the artist is set try to find matching artist page
-      // create new artist page if option chosen
-      if(!empty($artist)){
-
-          $searchArgs = array(
-            'post_title_like' => $artist,
-            'post_type' => 'artists',
-          );
-
-          $artistSearchResult = new WP_Query($searchArgs);
-
-          if ($artistSearchResult->post_count == 0) {
-              // create new artist
-              $artist_page_post = array(
-                'post_title' => $artist,
-                'post_content' => "bio coming soon...",
-                'post_author' => 1,
-                'post_name' => $artist,
-              );
-              // Insert the post!!
-              $artist_page_id = wp_insert_post($artist_page_post);
-
-              // set post type
-              set_post_type($artist_page_id, "artists");
-
-          } else {
-              // get artist id
-              $artist_page_id = $artistSearchResult->post->ID;
-          }
-
-          // update song post with artist id
-          add_post_meta($postID, "artist_nameaa", $artist_page_id);
-
-      }
+      add_remix_playlist_artist($postID, $the_playlist_array_final, $artist);
     }
 
     array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'audio-to-song-post'));
@@ -417,6 +403,50 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
   }
 
 }
+
+
+function add_remix_playlist_artist($postID, $the_playlist_array_final, $artist) {
+
+  add_post_meta($postID, "playlist", $the_playlist_array_final);
+  add_post_meta($postID, "auto_play", 'false');
+
+
+  // If the artist is set try to find matching artist page
+  // create new artist page if option chosen
+  if(!empty($artist)){
+
+      $searchArgs = array(
+        'post_title_like' => $artist,
+        'post_type' => 'artists',
+      );
+
+      $artistSearchResult = new WP_Query($searchArgs);
+
+      if ($artistSearchResult->post_count == 0) {
+          // create new artist
+          $artist_page_post = array(
+            'post_title' => $artist,
+            'post_content' => "bio coming soon...",
+            'post_author' => 1,
+            'post_name' => $artist,
+          );
+          // Insert the post!!
+          $artist_page_id = wp_insert_post($artist_page_post);
+
+          // set post type
+          set_post_type($artist_page_id, "artists");
+
+      } else {
+          // get artist id
+          $artist_page_id = $artistSearchResult->post->ID;
+      }
+
+      // update song post with artist id
+      add_post_meta($postID, "artist_nameaa", $artist_page_id);
+  }
+
+}
+
 
 function testcommentsforvalid($comment) {
   $comment_ary = explode(" ", $comment);
