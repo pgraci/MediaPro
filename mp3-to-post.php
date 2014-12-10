@@ -68,6 +68,10 @@ function song_admin() {
       padding: 10px;
       margin: 10px;
     }
+
+    .audio-to-song-post-form h1 {
+      font-size: 70%;
+    }
   </style>
 
   <div class="wrap">
