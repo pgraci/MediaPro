@@ -498,7 +498,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
           'post_date' => $postdate
       );
       wp_update_post( $my_post_date );
-      
+
       // Reset post status to draft
       $my_post_status2 = array(
           'ID'           => $postID,
@@ -509,25 +509,65 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     }
 
 
-    // If the category/genre is set then update the post
-    if(!empty($category)){
-      $category_ID = get_cat_ID($category);
-      // if a category exists
-      if($category_ID) {
-        $categories_array = array($category_ID);
-        wp_set_post_categories($postID, $categories_array);
-      }
-      // if it doesn't exist then create a new category
-      // TODO - make sure that its a word and not an number in parens ie (16)
-      else {
-        $new_category_ID = wp_create_category($category);
-        $categories_array = array($new_category_ID);
-        wp_set_post_categories($postID, $categories_array);
-      }
-    }
+    // wp_set_post_terms( $post_id, $terms, $taxonomy )
+
+    // $taxonomy = 'songs_cat';
+    // $terms = $category
+
+
+
 
     if ($post_type == 'songs') {
       add_remix_playlist_artist($postID, $the_playlist_array_final, $artist, $autoplay_mode);
+
+      if(!empty($category)){
+        // LOOKUP TAXONOMY TERM FOR GENRE
+
+        $genre_term = term_exists( $category, 'songs_cat' );
+        $genre_term_ID = $genre_term['term_id']; // get numeric term id
+
+        // if a category exists
+        if($genre_term_ID) {
+          $genre_array = array($genre_term_ID);
+        }
+        // if it doesn't exist then create a new category
+        // TODO - make sure that its a word and not an number in parens ie (16)
+        else {
+          //$new_genre_ID = wp_create_category($category);
+          wp_insert_term(
+            $category, // the term
+            'songs_cat', // the taxonomy
+            array(
+              'description'=> $category,
+              'slug' => sanitize_title($category),
+            )
+          );
+
+          $new_genre_term = term_exists( $category, 'songs_cat' );
+          $new_genre_term_ID = $new_genre_term['term_id']; // get numeric term id
+
+          $genre_array = array($new_genre_term_ID);
+        }
+        wp_set_post_terms( $postID, $genre_array, 'songs_cat' );
+      }
+
+    } else {
+      // If the category is set then update the post
+      if(!empty($category)){
+        $category_ID = get_cat_ID($category);
+        // if a category exists
+        if($category_ID) {
+          $categories_array = array($category_ID);
+        }
+        // if it doesn't exist then create a new category
+        // TODO - make sure that its a word and not an number in parens ie (16)
+        else {
+          $new_category_ID = wp_create_category($category);
+          $categories_array = array($new_category_ID);
+        }
+        wp_set_post_categories($postID, $categories_array);
+      }
+
     }
 
     array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'audio-to-song-post'));
