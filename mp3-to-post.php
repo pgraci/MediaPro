@@ -53,7 +53,10 @@ function song_admin() {
 
   ?>
   <style>
-    .mode_label {width: 200px;}
+    .mode_label {
+      width: 200px;
+      color: red;
+      }
   </style>
 
   <div class="wrap">
