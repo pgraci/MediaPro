@@ -72,6 +72,10 @@ function song_admin() {
     .audio-to-song-post-form h1 {
       font-size: 110%;
     }
+
+    #posting_mode_div {
+      display: none;
+    }
   </style>
 
   <div class="wrap">
@@ -108,11 +112,13 @@ function song_admin() {
       </fieldset>
 
       <fieldset>
+        <div id="posting_mode_div">
         <label class="mode_label" for="post_mode">Post Mode</label>
         <select id="post_mode" name="post_mode">
           <option value="1">Create multiple posts</option>
           <option value="2" <?php if ($selected_post_mode=='2') {echo "selected";} ?>>Create one post with playlist of tracks</option>
         </select>
+        </div>
       </fieldset>
 
       <fieldset>
