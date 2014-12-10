@@ -66,6 +66,7 @@ function song_admin() {
     .audio-to-song-post-form {
       background-color: #fff;
       padding: 10px;
+      margin: 10px;
     }
   </style>
 
