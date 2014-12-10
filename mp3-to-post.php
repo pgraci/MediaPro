@@ -417,7 +417,6 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
       'post_content' => $description,
       'post_author' => 1,
       'post_name' => $title,
-      'post_status' => 'publish',
     );
     // Insert the post!!
     $postID = wp_insert_post($my_post);
@@ -439,6 +438,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
       // Update post date
       $my_post_date = array(
           'ID'           => $postID,
+          'post_status' => 'publish',
           'post_date' => $postdate
       );
 
