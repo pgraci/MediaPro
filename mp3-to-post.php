@@ -367,8 +367,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             for ($i = 0; $i < $song_limit; $i++) {
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
-              array_push($messages, _e(' YEAR IS ' . $master_list[$i]['year'], 'audio-to-song-post'));
-              array_push($messages, _e(' DATEMODE IS ' . $date_mode, 'audio-to-song-post'));
+
               do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
             }
 
@@ -436,17 +435,23 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
       $postdate = $released_year . '-01-01 00:00:00';
 
+      // Update post status to publish so the date can be reset
+      $my_post_status = array(
+          'ID'           => $postID,
+          'post_status' => 'publish',
+      );
+      wp_update_post( $my_post_status );
+
       // Update post date
       $my_post_date = array(
           'ID'           => $postID,
           'post_status' => 'publish',
           'post_date' => $postdate
       );
+      wp_update_post( $my_post_date );
 
     }
 
-    // Update the post into the database
-    wp_update_post( $my_post_date );
 
     // If the category/genre is set then update the post
     if(!empty($category)){
