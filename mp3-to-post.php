@@ -341,7 +341,24 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               }elseif ($description_mode == '2') {
                 $post_content = $description;
               } elseif ($description_mode == '3') {
-                $post_content = '<p>"' . $title . '" from "' . $album . '" by ' . $artist . '</p><p>Released: ' . $released_year . '</p><p>Genre: ' . $category . '</p><p>BPM: ' . $bpm . '</p>';
+                $post_content = '<p>"' . $title . '" from "' . $album . '" by ' . $artist . '</p>';
+
+                if (!empty($released_year)) {
+                  $post_content += '<p>Released: ' . $released_year . '</p>';
+                }
+
+                if (!empty($category)) {
+                  $post_content += '<p>Genre: ' . $category . '</p>';
+                }
+
+                if (!empty($bpm)) {
+                  $post_content += '<p>BPM: ' . $bpm . '</p>';
+                }
+
+                if (!empty($isrc)) {
+                  $post_content += '<p>ISRC: ' . $isrc . '</p>';
+                }
+
               }
 
 
@@ -372,7 +389,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'post_thumbnail_id' => $post_thumbnail_id,
                   'post_type' => $post_type,
                   'post_content' => $post_content,
-                  'post_tags' => $comments,
+                  'post_tags' => $post_tags,
                   'the_playlist_array' => $the_playlist_array,
                   'year' => $released_year,
                 );
