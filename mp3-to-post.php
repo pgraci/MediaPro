@@ -64,6 +64,12 @@ function song_admin() {
 
   <div class="wrap">
     <h2>AudioPost</h2>
+
+    <div class="uploader">
+      <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
+    </div>
+    <hr />
+
     <?php
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
@@ -140,7 +146,7 @@ function song_admin() {
       </select>
     </fieldset>
 
-      <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
+      <input id="create_posts" name="create_posts" type="submit" class="button-primary" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
     </form>
     <?php
@@ -158,12 +164,6 @@ function song_admin() {
     }
     // end POST check
     ?>
-    <hr />
-
-    <div class="uploader">
-      <br />
-      <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
-    </div>
 
   </div>
 <?php
