@@ -73,6 +73,16 @@ function song_admin() {
     <?php
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
+
+    $selected_type_of_post = $_POST['type_of_post'];
+    $selected_post_mode = $_POST['post_mode'];
+    $selected_date_mode = $_POST['date_mode'];
+    $selected_title_mode = $_POST['title_mode'];
+    $selected_artist_mode = $_POST['artist_mode'];
+    $selected_description_mode = $_POST['description_mode'];
+    $selected_tags_mode = $_POST['tags_mode'];
+    $selected_autoplay_mode = $_POST['autoplay_mode'];
+
     ?>
     <form method="post" action="">
 
@@ -80,7 +90,7 @@ function song_admin() {
       <label class="mode_label" for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
         <option value="songs">REMIX Song</option>
-        <option value="post" <?php if ($_POST['type_of_post']=='post') {echo "selected";} ?>>Blog Post</option>
+        <option value="post" <?php if ($selected_type_of_post=='post') {echo "selected";} ?>>Blog Post</option>
       </select>
     </fieldset>
 
@@ -88,7 +98,7 @@ function song_admin() {
       <label class="mode_label" for="post_mode">Post Mode</label>
       <select id="post_mode" name="post_mode">
         <option value="1">Create multiple posts</option>
-        <option value="2">Create one post with playlist of tracks</option>
+        <option value="2" <?php if ($selected_post_mode=='2') {echo "selected";} ?>>Create one post with playlist of tracks</option>
       </select>
     </fieldset>
 
@@ -96,7 +106,7 @@ function song_admin() {
       <label class="mode_label" for="date_mode">Post Date</label>
       <select id="date_mode" name="date_mode">
         <option value="0">Now</option>
-        <option value="1">Release Date</option>
+        <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date</option>
       </select>
     </fieldset>
 
@@ -104,8 +114,8 @@ function song_admin() {
       <label class="mode_label" for="title_mode">Title</label>
       <select id="title_mode" name="title_mode">
         <option value="1">from Title</option>
-        <option value="2">from Album</option>
-        <option value="3">Artist - Title</option>
+        <option value="2" <?php if ($selected_title_mode=='2') {echo "selected";} ?>>from Album</option>
+        <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist - Title</option>
       </select>
     </fieldset>
 
@@ -113,7 +123,7 @@ function song_admin() {
       <label class="mode_label" for="artist_mode">Artist</label>
       <select id="artist_mode" name="artist_mode">
         <option value="0">from Artist</option>
-        <option value="1">from Album Artist</option>
+        <option value="1" <?php if ($selected_artist_mode=='1') {echo "selected";} ?>>from Album Artist</option>
       </select>
     </fieldset>
 
@@ -121,10 +131,10 @@ function song_admin() {
       <label class="mode_label" for="description_mode">Description</label>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
-        <option value="2">from Description</option>
-        <option value="3">Comments + Description</option>
-        <option value="4">Comments + Description + Genre + BPM</option>
-        <option value="5">from WordPress media description</option>
+        <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
+        <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>Comments + Description</option>
+        <option value="4" <?php if ($selected_description_mode=='4') {echo "selected";} ?>>Comments + Description + Genre + BPM</option>
+        <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>from WordPress media description</option>
       </select>
     </fieldset>
 
@@ -132,9 +142,9 @@ function song_admin() {
       <label class="mode_label" for="tags_mode">Tagging</label>
       <select id="tags_mode" name="tags_mode">
         <option value="0">No tagging</option>
-        <option value="1">from Grouping</option>
-        <option value="2">from Comments</option>
-        <option value="3">from Description</option>
+        <option value="1" <?php if ($selected_tags_mode=='1') {echo "selected";} ?>>from Grouping</option>
+        <option value="2" <?php if ($selected_tags_mode=='2') {echo "selected";} ?>>from Comments</option>
+        <option value="3" <?php if ($selected_tags_mode=='3') {echo "selected";} ?>>from Description</option>
       </select>
     </fieldset>
 
@@ -142,7 +152,7 @@ function song_admin() {
       <label class="mode_label" for="autoplay_mode">Autoplay</label>
       <select id="autoplay_mode" name="autoplay_mode">
         <option value="0">Off</option>
-        <option value="1">On</option>
+        <option value="1" <?php if ($selected_autoplay_mode=='1') {echo "selected";} ?>>On</option>
       </select>
     </fieldset>
 
@@ -152,7 +162,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $_POST['type_of_post'], $_POST['post_mode']));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode));
 
       $arrlength = count($songs_array);
 
