@@ -186,7 +186,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
   } else {
 
 
-      $the_song_tags_array_final = array();
+      $master_list = array();
 
       // Initialize getID3 engine
       $getID3 = new getID3;
@@ -287,9 +287,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'buy_link_d' => '',
                 );
 
-                //for remix song playlists push this into
-                // array_push($the_playlist_array_final, $the_playlist_array);
-
               }
 
 
@@ -303,7 +300,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'the_playlist_array' => $the_playlist_array,
                 );
 
-              array_push($the_song_tags_array_final, $the_song_tags);
+              array_push($master_list, $the_song_tags);
 
 
               // check if we have a title
@@ -320,12 +317,17 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
           if ($posting_mode == '1') {
             // loop array and make a post for each song
 
-            $song_limit = count($the_song_tags_array_final);
+            $song_limit = count($master_list);
 
-            for ($i = 0; $i < $song_limit; $i++) {
+            for ($i = 0; $i < $song_limit; $i++) {            
 
-                  echo "<p>title: ".$the_song_tags_array_final[$i]['title']."</p>";
-                  echo "<p>artist: ".$the_song_tags_array_final[$i]['artist']."</p>";
+              // make an array to stick the playlist into even tho only one track
+              $the_playlist_array_final = array();
+
+              array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
+
+              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final);
+
             }
 
 
