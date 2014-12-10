@@ -53,7 +53,7 @@ function song_admin() {
 
   ?>
   <style>
-    label {width: 100px;}
+    .mode_label {width: 100px;}
   </style>
 
   <div class="wrap">
@@ -65,7 +65,7 @@ function song_admin() {
     <form method="post" action="">
 
     <fieldset>
-      <label for="type_of_post">Post Type</label>
+      <label class="mode_label" for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
         <option value="songs">REMIX Song Post</option>
         <option value="post">Blog Post</option>
@@ -73,7 +73,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="post_mode">Post Mode</label>
+      <label class="mode_label" for="post_mode">Post Mode</label>
       <select id="post_mode" name="post_mode">
         <option value="1">Create a post from each selected song</option>
         <option value="2">Create a single post with playlist of tracks</option>
@@ -81,7 +81,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="title_mode">Title Mode</label>
+      <label class="mode_label" for="title_mode">Title Mode</label>
       <select id="title_mode" name="title_mode">
         <option value="1">from Title</option>
         <option value="2">from Album</option>
@@ -90,7 +90,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="artist_mode">artist names</label>
+      <label class="mode_label" for="artist_mode">artist names</label>
       <select id="artist_mode" name="artist_mode">
         <option value="0">from Artist</option>
         <option value="1">from Album Artist</option>
@@ -98,7 +98,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="description_mode">description</label>
+      <label class="mode_label" for="description_mode">description</label>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
         <option value="2">from Description</option>
@@ -109,7 +109,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="tags_mode">tagging</label>
+      <label class="mode_label" for="tags_mode">tagging</label>
       <select id="tags_mode" name="tags_mode">
         <option value="1">from Grouping</option>
         <option value="2">from Comments</option>
@@ -118,7 +118,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="autoplay_mode">autoplay</label>
+      <label class="mode_label" for="autoplay_mode">autoplay</label>
       <select id="autoplay_mode" name="autoplay_mode">
         <option value="0">Off</option>
         <option value="1">On</option>
@@ -126,7 +126,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label for="date_mode">post date</label>
+      <label class="mode_label" for="date_mode">post date</label>
       <select id="date_mode" name="date_mode">
         <option value="0">now</option>
         <option value="1">release date</option>
