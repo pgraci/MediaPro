@@ -111,15 +111,15 @@ function song_admin() {
         </select>
       </fieldset>
 
+      <div id="posting_mode_div">
       <fieldset>
-        <div id="posting_mode_div">
         <label class="mode_label" for="post_mode">Post Mode</label>
         <select id="post_mode" name="post_mode">
           <option value="1">Create multiple posts</option>
           <option value="2" <?php if ($selected_post_mode=='2') {echo "selected";} ?>>Create one post with playlist of tracks</option>
         </select>
-        </div>
       </fieldset>
+      </div>
 
       <fieldset>
         <label class="mode_label" for="date_mode">Post Date</label>
