@@ -228,12 +228,6 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
               $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
 
-              if ($posting_mode == '2') {
-                $title = $album;
-              } else {
-                $title = $title;
-              }
-
               $artist = $ThisFileInfo['tags_html']['id3v2']['artist'][0];
               $album_artist = $ThisFileInfo['tags_html']['id3v2']['band'][0];
               $category = $ThisFileInfo['tags_html']['id3v2']['genre'][0];
@@ -287,6 +281,12 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'buy_link_d' => '',
                 );
 
+              }
+
+              //remap fields
+
+              if ($posting_mode == '2') {
+                $title = $album;
               }
 
 
