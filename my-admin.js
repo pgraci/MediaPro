@@ -38,7 +38,7 @@ jQuery(document).ready(function($){
 
             $('#posts_ids').val(all_the_ids.join());
             $('#upload_image_button').css('display','none');
-            $('.uploader').html(('#posts_ids').lenth + ' songs selected.  Next select your options below, and click Create Posts.');
+            $('.uploader').html(('#posts_ids').length + ' songs selected.  Next select your options below, and click Create Posts.');
 
             $('#create_posts').css('display','block');
 
