@@ -151,8 +151,8 @@ function song_admin() {
     <fieldset>
       <label class="mode_label" for="autoplay_mode">Autoplay</label>
       <select id="autoplay_mode" name="autoplay_mode">
-        <option value="0">Off</option>
-        <option value="1" <?php if ($selected_autoplay_mode=='1') {echo "selected";} ?>>On</option>
+        <option value="false">Off</option>
+        <option value="true" <?php if ($selected_autoplay_mode=='true') {echo "selected";} ?>>On</option>
       </select>
     </fieldset>
 
@@ -377,7 +377,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
@@ -427,7 +427,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     }
 
     if ($post_type == 'songs') {
-      add_remix_playlist_artist($postID, $the_playlist_array_final, $artist);
+      add_remix_playlist_artist($postID, $the_playlist_array_final, $artist, $autoplay_mode);
     }
 
     array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'audio-to-song-post'));
@@ -438,10 +438,10 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 }
 
 
-function add_remix_playlist_artist($postID, $the_playlist_array_final, $artist) {
+function add_remix_playlist_artist($postID, $the_playlist_array_final, $artist, $autoplay_mode) {
 
   add_post_meta($postID, "playlist", $the_playlist_array_final);
-  add_post_meta($postID, "auto_play", 'false');
+  add_post_meta($postID, "auto_play", $autoplay_mode);
 
 
   // If the artist is set try to find matching artist page
