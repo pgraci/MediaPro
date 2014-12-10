@@ -317,10 +317,11 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
           if ($posting_mode == '1') {
             // loop array and make a post for each song
+          
+            // make an array to stick the playlist into even tho only one track
+            $the_playlist_array_final = array();
 
             for ($i = 0; $i < $song_limit; $i++) {
-              // make an array to stick the playlist into even tho only one track
-              $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
               do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final);
