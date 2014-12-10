@@ -60,36 +60,36 @@ function song_admin() {
     ?>
     <form method="post" action="">
 
-      <p>select type of post - blog, remix song, or podcast</p>
+      <label for="type_of_post">select type of post - blog, remix song, or podcast</label>
       <select id="type_of_post" name="type_of_post">
         <option value="songs">REMIX Song Post</option>
         <option value="post">Blog Post</option>
       </select>
-      <br />
 
-      <p>posting mode</p>
+
+      <label for="post_mode">posting mode</label>
       <select id="post_mode" name="post_mode">
         <option value="1">Create a post from each selected song</option>
         <option value="2">Create a single post with playlist of tracks</option>
       </select>
-      <br />
 
-      <p>title</p>
+
+      <label for="title_mode">title</label>
       <select id="title_mode" name="title_mode">
         <option value="1">from Title</option>
         <option value="2">from Album</option>
         <option value="3">Artist - Title</option>
       </select>
-      <br />
 
-      <p>artist names</p>
+
+      <label for="artist_mode">artist names</label>
       <select id="artist_mode" name="artist_mode">
         <option value="0">from Artist</option>
         <option value="1">from Album Artist</option>
       </select>
-      <br />
 
-      <p>description</p>
+
+      <label for="description_mode">description</label>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
         <option value="2">from Description</option>
@@ -97,30 +97,30 @@ function song_admin() {
         <option value="4">Comments + Description + Genre + BPM</option>
         <option value="5">from WordPress media description</option>
       </select>
-      <br />
 
-      <p>tagging</p>
+
+      <label for="tags_mode">tagging</label>
       <select id="tags_mode" name="tags_mode">
         <option value="1">from Grouping</option>
         <option value="2">from Comments</option>
         <option value="3">from Description</option>
       </select>
-      <br />
 
-      <p>autoplay</p>
+
+      <label for="autoplay_mode">autoplay</label>
       <select id="autoplay_mode" name="autoplay_mode">
         <option value="0">Off</option>
         <option value="1">On</option>
       </select>
-      <br />
 
 
-      <p>post date</p>
+
+      <label for="date_mode">post date</label>
       <select id="date_mode" name="date_mode">
         <option value="0">now</option>
         <option value="1">release date</option>
       </select>
-      <br />
+
 
 
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
