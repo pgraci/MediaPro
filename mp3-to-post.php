@@ -433,7 +433,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     // Update post date
     $my_post_date = array(
         'ID'           => $postID,
-        'post_date' => $postdate;
+        'post_date' => $postdate
     );
 
     // Update the post into the database
