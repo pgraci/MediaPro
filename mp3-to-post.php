@@ -60,16 +60,22 @@ function song_admin() {
       width: 100px;
       float: left;
       }
+
+    .messages,
+    .audio-to-song-post-header,
+    .audio-to-song-post-form {
+      background-color: #fff;
+    }
   </style>
 
   <div class="wrap">
-    <h2 class="nav-tab-wrapper">AudioPost</h2>
+    <div class="audio-to-song-post-header">
+      <h2>AudioPost</h2>
 
-    <div class="uploader">
-      <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
-    </div>
-    <hr />
-
+      <div class="uploader">
+        <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
+      </div>
+    </div >
     <?php
     // load our variables in to an array
     $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
@@ -84,84 +90,87 @@ function song_admin() {
     $selected_autoplay_mode = $_POST['autoplay_mode'];
 
     ?>
-    <form method="post" action="">
-    <h1>Post Options</h1>
-    <fieldset>
-      <label class="mode_label" for="type_of_post">Post Type</label>
-      <select id="type_of_post" name="type_of_post">
-        <option value="songs">REMIX Song</option>
-        <option value="post" <?php if ($selected_type_of_post=='post') {echo "selected";} ?>>Blog Post</option>
-      </select>
-    </fieldset>
+    <div class="audio-to-song-post-form">
+      <form method="post" action="">
+      <h1>Post Options</h1>
+      <fieldset>
+        <label class="mode_label" for="type_of_post">Post Type</label>
+        <select id="type_of_post" name="type_of_post">
+          <option value="songs">REMIX Song</option>
+          <option value="post" <?php if ($selected_type_of_post=='post') {echo "selected";} ?>>Blog Post</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="post_mode">Post Mode</label>
-      <select id="post_mode" name="post_mode">
-        <option value="1">Create multiple posts</option>
-        <option value="2" <?php if ($selected_post_mode=='2') {echo "selected";} ?>>Create one post with playlist of tracks</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="post_mode">Post Mode</label>
+        <select id="post_mode" name="post_mode">
+          <option value="1">Create multiple posts</option>
+          <option value="2" <?php if ($selected_post_mode=='2') {echo "selected";} ?>>Create one post with playlist of tracks</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="date_mode">Post Date</label>
-      <select id="date_mode" name="date_mode">
-        <option value="0">Now</option>
-        <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date/Year</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="date_mode">Post Date</label>
+        <select id="date_mode" name="date_mode">
+          <option value="0">Now</option>
+          <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date/Year</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="title_mode">Title</label>
-      <select id="title_mode" name="title_mode">
-        <option value="1">from Title</option>
-        <option value="2" <?php if ($selected_title_mode=='2') {echo "selected";} ?>>from Album</option>
-        <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist - Title</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="title_mode">Title</label>
+        <select id="title_mode" name="title_mode">
+          <option value="1">from Title</option>
+          <option value="2" <?php if ($selected_title_mode=='2') {echo "selected";} ?>>from Album</option>
+          <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist - Title</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="description_mode">Description</label>
-      <select id="description_mode" name="description_mode">
-        <option value="1">from Comments</option>
-        <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
-        <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>Comments + Description</option>
-        <option value="4" <?php if ($selected_description_mode=='4') {echo "selected";} ?>>Comments + Description + Genre + BPM</option>
-        <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>from WordPress media description</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="description_mode">Description</label>
+        <select id="description_mode" name="description_mode">
+          <option value="1">from Comments</option>
+          <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
+          <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>Comments + Description</option>
+          <option value="4" <?php if ($selected_description_mode=='4') {echo "selected";} ?>>Comments + Description + Genre + BPM</option>
+          <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>from WordPress media description</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="tags_mode">Tagging</label>
-      <select id="tags_mode" name="tags_mode">
-        <option value="0">No tagging</option>
-        <option value="1" <?php if ($selected_tags_mode=='1') {echo "selected";} ?>>from Grouping</option>
-        <option value="2" <?php if ($selected_tags_mode=='2') {echo "selected";} ?>>from Comments</option>
-        <option value="3" <?php if ($selected_tags_mode=='3') {echo "selected";} ?>>from Description</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="tags_mode">Tagging</label>
+        <select id="tags_mode" name="tags_mode">
+          <option value="0">No tagging</option>
+          <option value="1" <?php if ($selected_tags_mode=='1') {echo "selected";} ?>>from Grouping</option>
+          <option value="2" <?php if ($selected_tags_mode=='2') {echo "selected";} ?>>from Comments</option>
+          <option value="3" <?php if ($selected_tags_mode=='3') {echo "selected";} ?>>from Description</option>
+        </select>
+      </fieldset>
 
 
-    <h1>Song Options</h1>
+      <h1>Song Options</h1>
 
-    <fieldset>
-      <label class="mode_label" for="artist_mode">Artist</label>
-      <select id="artist_mode" name="artist_mode">
-        <option value="0">from Artist</option>
-        <option value="1" <?php if ($selected_artist_mode=='1') {echo "selected";} ?>>from Album Artist</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="artist_mode">Artist</label>
+        <select id="artist_mode" name="artist_mode">
+          <option value="0">from Artist</option>
+          <option value="1" <?php if ($selected_artist_mode=='1') {echo "selected";} ?>>from Album Artist</option>
+        </select>
+      </fieldset>
 
-    <fieldset>
-      <label class="mode_label" for="autoplay_mode">Autoplay</label>
-      <select id="autoplay_mode" name="autoplay_mode">
-        <option value="false">Off</option>
-        <option value="true" <?php if ($selected_autoplay_mode=='true') {echo "selected";} ?>>On</option>
-      </select>
-    </fieldset>
+      <fieldset>
+        <label class="mode_label" for="autoplay_mode">Autoplay</label>
+        <select id="autoplay_mode" name="autoplay_mode">
+          <option value="false">Off</option>
+          <option value="true" <?php if ($selected_autoplay_mode=='true') {echo "selected";} ?>>On</option>
+        </select>
+      </fieldset>
 
-      <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
-      <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
-    </form>
+        <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
+        <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
+      </form>
+    </div >
+
 
     <div class="messages">
     <?php
