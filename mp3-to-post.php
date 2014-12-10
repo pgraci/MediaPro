@@ -82,22 +82,46 @@ function song_admin() {
       </select>
       <br />
 
+      <p>artist names</p>
+      <select id="artist_mode" name="artist_mode">
+        <option value="0">from Artist</option>
+        <option value="1">from Album Artist</option>
+      </select>
+      <br />
+
       <p>description</p>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
         <option value="2">from Description</option>
         <option value="3">Comments + Description</option>
-        <option value="3">Comments + Description + Genre + BPM</option>
+        <option value="4">Comments + Description + Genre + BPM</option>
+        <option value="5">from WordPress media description</option>
       </select>
       <br />
 
-      <p>tags</p>
+      <p>tagging</p>
       <select id="tags_mode" name="tags_mode">
         <option value="1">from Grouping</option>
         <option value="2">from Comments</option>
         <option value="3">from Description</option>
       </select>
       <br />
+
+      <p>autoplay</p>
+      <select id="autoplay_mode" name="autoplay_mode">
+        <option value="0">Off</option>
+        <option value="1">On</option>
+      </select>
+      <br />
+
+
+      <p>post date</p>
+      <select id="date_mode" name="date_mode">
+        <option value="0">now</option>
+        <option value="1">release date</option>
+      </select>
+      <br />
+
 
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
@@ -144,25 +168,6 @@ function title_like_posts_where($where, &$wp_query) {
 }
 add_filter('posts_where', 'title_like_posts_where', 10, 2);
 
-/**
- * Takes a string and only returns it if it has '.mp3' in it.
- *
- * @param $string
- *   A string, possibly containing .mp3
- *
- * @return
- *   Returns a string.  Only if it contains '.mp3' or it returns FALSE
- */
-function mp3_only($filename) {
-  $findme = '.mp3';
-  $pos = strpos($filename, $findme);
-
-  if ($pos !== false) {
-    return $filename;
-  } else {
-    return FALSE;
-  }
-}
 
 /**
  * Creates a post from an mp3 file.
@@ -214,16 +219,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               // if not use id3v1 tags
               // for itunes purchases, make sure to use other field names
               // allow user to insert songs / playlist into existing post!
-              // move playlist insertion logic for remix into seperate routine
-
-              //release date field - take year or specify date
 
               //ISRC
-
-              // create array of song data to be processed
-
-              //autoplay true false
-
 
               $title = $ThisFileInfo['tags_html']['id3v2']['title'][0];
               $album = $ThisFileInfo['tags_html']['id3v2']['album'][0];
