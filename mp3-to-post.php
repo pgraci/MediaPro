@@ -344,19 +344,19 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $post_content = '<p>"' . $title . '" from "' . $album . '" by ' . $artist . '</p>';
 
                 if (!empty($released_year)) {
-                  $post_content += '<p>Released: ' . $released_year . '</p>';
+                  $post_content = $post_content . '<p>Released: ' . $released_year . '</p>';
                 }
 
                 if (!empty($category)) {
-                  $post_content += '<p>Genre: ' . $category . '</p>';
+                  $post_content = $post_content . '<p>Genre: ' . $category . '</p>';
                 }
 
                 if (!empty($bpm)) {
-                  $post_content += '<p>BPM: ' . $bpm . '</p>';
+                  $post_content = $post_content . '<p>BPM: ' . $bpm . '</p>';
                 }
 
                 if (!empty($isrc)) {
-                  $post_content += '<p>ISRC: ' . $isrc . '</p>';
+                  $post_content = $post_content . '<p>ISRC: ' . $isrc . '</p>';
                 }
 
               }
