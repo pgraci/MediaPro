@@ -498,6 +498,13 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
           'post_date' => $postdate
       );
       wp_update_post( $my_post_date );
+      
+      // Reset post status to draft
+      $my_post_status2 = array(
+          'ID'           => $postID,
+          'post_status2' => 'draft',
+      );
+      wp_update_post( $my_post_status2 );
 
     }
 
