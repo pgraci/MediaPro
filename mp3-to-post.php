@@ -432,7 +432,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     //set featured image
     set_post_thumbnail($postID, $post_thumbnail_id);
 
-    if (($date_mode=='1') && (!empty($released_year))) {
+    if (($date_mode=='1')) {
       // try to get Created Date, otherwise use Year
 
 
@@ -448,7 +448,6 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
       // Update post date
       $my_post_date = array(
           'ID'           => $postID,
-          'post_status' => 'publish',
           'post_date' => $postdate
       );
       wp_update_post( $my_post_date );
