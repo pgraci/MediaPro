@@ -106,7 +106,7 @@ function song_admin() {
       <label class="mode_label" for="date_mode">Post Date</label>
       <select id="date_mode" name="date_mode">
         <option value="0">Now</option>
-        <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date</option>
+        <option value="1" <?php if ($selected_date_mode=='1') {echo "selected";} ?>>Release Date/Year</option>
       </select>
     </fieldset>
 
@@ -156,7 +156,7 @@ function song_admin() {
       </select>
     </fieldset>
 
-      <input id="create_posts" name="create_posts" type="submit" class="button-primary" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
+      <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
     </form>
     <?php
