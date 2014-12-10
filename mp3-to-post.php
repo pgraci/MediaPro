@@ -137,9 +137,7 @@ function song_admin() {
         <select id="description_mode" name="description_mode">
           <option value="1">from Comments</option>
           <option value="2" <?php if ($selected_description_mode=='2') {echo "selected";} ?>>from Description</option>
-          <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>Comments + Description</option>
-          <option value="4" <?php if ($selected_description_mode=='4') {echo "selected";} ?>>Comments + Description + Genre + BPM</option>
-          <option value="5" <?php if ($selected_description_mode=='5') {echo "selected";} ?>>"Song Title" from "Album" by Artist. Released: Year. Genre: Genre. ISRC: ISRC</option>
+          <option value="3" <?php if ($selected_description_mode=='3') {echo "selected";} ?>>"Song Title" from "Album" by Artist. Released: Year. Genre: Genre. BPM: BPM. ISRC: ISRC</option>
         </select>
       </fieldset>
 
@@ -337,13 +335,24 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $title = $title . " - " . $artist;
               }
 
-              //remap artist if for both post content and playlists
+              //remap post content field
+              if ($description_mode == '1') {
+                $post_content = $comments;
+              } elseif ($description_mode == '2') {
+                $post_content = $description;
+              }
+
+              //remap post tags
+              if ($title_mode == '2') {
+                $post_tags = $album;
+              } elseif ($title_mode == '3') {
+                $post_tags = $title . " - " . $artist;
+              }
+
+              //remap artist to album artist
               if ($artist_mode == '1') {
                 $artist = $album_artist;
               }
-
-
-// $description_mode, $tags_mode
 
                 $the_song_tags = array(
                   'title' => $title,
@@ -351,7 +360,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'category' => $category,
                   'post_thumbnail_id' => $post_thumbnail_id,
                   'post_type' => $post_type,
-                  'description' => $description,
+                  'post_content' => $post_content,
+                  'post_tags' => $comments,
                   'the_playlist_array' => $the_playlist_array,
                   'year' => $released_year,
                 );
@@ -378,7 +388,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
-              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
             }
 
           } else {
@@ -394,7 +404,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             // normalize lists of tags
 
             // post first song for now as the album
-            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['description'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
 
           }
 
@@ -407,7 +417,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $created_date) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $post_content, $post_tags, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $created_date) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
@@ -424,7 +434,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     // create basic post with info from ID3 details
     $my_post = array(
       'post_title' => $title,
-      'post_content' => $description,
+      'post_content' => $post_content,
       'post_author' => 1,
       'post_name' => $title,
     );
@@ -434,15 +444,16 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     // set post type
     set_post_type($postID, $post_type);
 
-    //set post tags
-    wp_set_post_tags($postID, $comment);
+    if(!empty($post_tags)){
+      //set post tags
+      wp_set_post_tags($postID, $post_tags);
+    }
 
     //set featured image
     set_post_thumbnail($postID, $post_thumbnail_id);
 
     if (($date_mode=='1') && (!empty($released_year))) {
       // try to get Created Date, otherwise use Year
-
 
       $postdate = $released_year . '-01-01 00:00:00';
 
