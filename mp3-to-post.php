@@ -54,7 +54,7 @@ function song_admin() {
   ?>
   <style>
     .mode_label {
-      width: 200px;
+      width: 200px !important;
       color: red;
       }
   </style>
