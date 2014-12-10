@@ -126,7 +126,7 @@ function song_admin() {
       <fieldset>
         <label class="mode_label" for="title_mode">Post Title</label>
         <select id="title_mode" name="title_mode">
-          <option value="1">from Title</option>
+          <option value="1">from Song Title</option>
           <option value="2" <?php if ($selected_title_mode=='2') {echo "selected";} ?>>from Album</option>
           <option value="3" <?php if ($selected_title_mode=='3') {echo "selected";} ?>>Artist + Song Title</option>
         </select>
@@ -182,7 +182,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode, $selected_description_mode, $selected_tags_mode, $selected_artist_mode));
 
       $arrlength = count($songs_array);
 
@@ -228,7 +228,7 @@ add_filter('posts_where', 'title_like_posts_where', 10, 2);
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode, $description_mode, $tags_mode, $artist_mode) {
   $messages = array();
 
   // check of there are files to process
@@ -295,6 +295,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 }
               }
 
+
               // generate playlist data
 
               if ($post_type == 'post') {
@@ -330,13 +331,19 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               }
 
               //remap post title field
-
               if ($title_mode == '2') {
                 $title = $album;
               } elseif ($title_mode == '3') {
                 $title = $title . " - " . $artist;
               }
 
+              //remap artist if for both post content and playlists
+              if ($artist_mode == '1') {
+                $artist = $album_artist;
+              }
+
+
+, $description_mode, $tags_mode, $artist_mode
 
                 $the_song_tags = array(
                   'title' => $title,
