@@ -70,7 +70,7 @@ function song_admin() {
     <fieldset>
       <label class="mode_label" for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
-        <option value="songs">REMIX Song Post</option>
+        <option value="songs">REMIX Song</option>
         <option value="post">Blog Post</option>
       </select>
     </fieldset>
@@ -78,8 +78,16 @@ function song_admin() {
     <fieldset>
       <label class="mode_label" for="post_mode">Post Mode</label>
       <select id="post_mode" name="post_mode">
-        <option value="1">Create a post from each selected song</option>
-        <option value="2">Create a single post with playlist of tracks</option>
+        <option value="1">Create multiple posts</option>
+        <option value="2">Create one post with playlist of tracks</option>
+      </select>
+    </fieldset>
+
+    <fieldset>
+      <label class="mode_label" for="date_mode">Post Date</label>
+      <select id="date_mode" name="date_mode">
+        <option value="0">Now</option>
+        <option value="1">Release Date</option>
       </select>
     </fieldset>
 
@@ -114,6 +122,7 @@ function song_admin() {
     <fieldset>
       <label class="mode_label" for="tags_mode">Tagging</label>
       <select id="tags_mode" name="tags_mode">
+        <option value="0">No tagging</option>
         <option value="1">from Grouping</option>
         <option value="2">from Comments</option>
         <option value="3">from Description</option>
@@ -125,14 +134,6 @@ function song_admin() {
       <select id="autoplay_mode" name="autoplay_mode">
         <option value="0">Off</option>
         <option value="1">On</option>
-      </select>
-    </fieldset>
-
-    <fieldset>
-      <label class="mode_label" for="date_mode">Post Date</label>
-      <select id="date_mode" name="date_mode">
-        <option value="0">now</option>
-        <option value="1">release date</option>
       </select>
     </fieldset>
 
