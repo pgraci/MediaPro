@@ -70,7 +70,7 @@ function song_admin() {
     }
 
     .audio-to-song-post-form h1 {
-      font-size: 70%;
+      font-size: 90%;
     }
   </style>
 
