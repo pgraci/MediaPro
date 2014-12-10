@@ -343,7 +343,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               }
 
 
-, $description_mode, $tags_mode, $artist_mode
+// $description_mode, $tags_mode
 
                 $the_song_tags = array(
                   'title' => $title,
