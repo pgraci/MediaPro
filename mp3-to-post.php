@@ -397,7 +397,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode, $released_year) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
