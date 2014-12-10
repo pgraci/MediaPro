@@ -313,28 +313,34 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
         }
 
+          $song_limit = count($master_list);
 
           if ($posting_mode == '1') {
             // loop array and make a post for each song
 
-            $song_limit = count($master_list);
-
-            for ($i = 0; $i < $song_limit; $i++) {            
-
+            for ($i = 0; $i < $song_limit; $i++) {
               // make an array to stick the playlist into even tho only one track
               $the_playlist_array_final = array();
-
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
               do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['description'], $the_playlist_array_final);
-
             }
 
 
           } else {
-            // loop array and make one post
+
+            for ($i = 0; $i < $song_limit; $i++) {
+              // make an array to stick all tracks into for remix playlist
+              $the_playlist_array_final = array();
+              array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
+            }
+
             // compile description
             // normalize lists of tags
+
+            // post first song for now as the album
+            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['description'], $the_playlist_array_final);
+
           }
 
           // do final playlist insert into post here for remix playlist songs
