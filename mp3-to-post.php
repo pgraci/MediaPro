@@ -84,7 +84,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="title_mode">Title Mode</label>
+      <label class="mode_label" for="title_mode">Title</label>
       <select id="title_mode" name="title_mode">
         <option value="1">from Title</option>
         <option value="2">from Album</option>
@@ -93,7 +93,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="artist_mode">artist names</label>
+      <label class="mode_label" for="artist_mode">Artist</label>
       <select id="artist_mode" name="artist_mode">
         <option value="0">from Artist</option>
         <option value="1">from Album Artist</option>
@@ -101,7 +101,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="description_mode">description</label>
+      <label class="mode_label" for="description_mode">Description</label>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
         <option value="2">from Description</option>
@@ -112,7 +112,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="tags_mode">tagging</label>
+      <label class="mode_label" for="tags_mode">Tagging</label>
       <select id="tags_mode" name="tags_mode">
         <option value="1">from Grouping</option>
         <option value="2">from Comments</option>
@@ -121,7 +121,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="autoplay_mode">autoplay</label>
+      <label class="mode_label" for="autoplay_mode">Autoplay</label>
       <select id="autoplay_mode" name="autoplay_mode">
         <option value="0">Off</option>
         <option value="1">On</option>
@@ -129,7 +129,7 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="date_mode">post date</label>
+      <label class="mode_label" for="date_mode">Post Date</label>
       <select id="date_mode" name="date_mode">
         <option value="0">now</option>
         <option value="1">release date</option>
