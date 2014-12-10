@@ -320,7 +320,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
           if ($posting_mode == '1') {
             // loop array and make a post for each song
 
-            $song_limit = count($the_song_tags_array_final) - 1;
+            $song_limit = count($the_song_tags_array_final);
 
             for ($i = 0; $i < $song_limit; $i++) {
 
