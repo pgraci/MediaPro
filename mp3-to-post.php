@@ -63,7 +63,7 @@ function song_admin() {
   </style>
 
   <div class="wrap">
-    <h2>AudioPost</h2>
+    <h2 class="nav-tab-wrapper">AudioPost</h2>
 
     <div class="uploader">
       <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
@@ -85,7 +85,7 @@ function song_admin() {
 
     ?>
     <form method="post" action="">
-
+    <h1>Post Options</h1>
     <fieldset>
       <label class="mode_label" for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
@@ -120,14 +120,6 @@ function song_admin() {
     </fieldset>
 
     <fieldset>
-      <label class="mode_label" for="artist_mode">Artist</label>
-      <select id="artist_mode" name="artist_mode">
-        <option value="0">from Artist</option>
-        <option value="1" <?php if ($selected_artist_mode=='1') {echo "selected";} ?>>from Album Artist</option>
-      </select>
-    </fieldset>
-
-    <fieldset>
       <label class="mode_label" for="description_mode">Description</label>
       <select id="description_mode" name="description_mode">
         <option value="1">from Comments</option>
@@ -145,6 +137,17 @@ function song_admin() {
         <option value="1" <?php if ($selected_tags_mode=='1') {echo "selected";} ?>>from Grouping</option>
         <option value="2" <?php if ($selected_tags_mode=='2') {echo "selected";} ?>>from Comments</option>
         <option value="3" <?php if ($selected_tags_mode=='3') {echo "selected";} ?>>from Description</option>
+      </select>
+    </fieldset>
+
+
+    <h1>Song Options</h1>
+
+    <fieldset>
+      <label class="mode_label" for="artist_mode">Artist</label>
+      <select id="artist_mode" name="artist_mode">
+        <option value="0">from Artist</option>
+        <option value="1" <?php if ($selected_artist_mode=='1') {echo "selected";} ?>>from Album Artist</option>
       </select>
     </fieldset>
 
