@@ -80,7 +80,7 @@ function song_admin() {
       <label class="mode_label" for="type_of_post">Post Type</label>
       <select id="type_of_post" name="type_of_post">
         <option value="songs">REMIX Song</option>
-        <option value="post" <?php if ($_POST['type_of_post']=='post') {echo "selected"}; ?>>Blog Post</option>
+        <option value="post" >Blog Post</option>
       </select>
     </fieldset>
 
