@@ -159,6 +159,8 @@ function song_admin() {
       <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
       <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
     </form>
+
+    <div class="messages">
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
@@ -174,7 +176,7 @@ function song_admin() {
     }
     // end POST check
     ?>
-
+    </div>
   </div>
 <?php
 }
