@@ -494,9 +494,6 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     // set post type
     set_post_type($postID, $post_type);
 
-    echo ":::: tags: " . $post_tags;
-
-
     if(!empty($post_tags)){
       //set post tags
       wp_set_post_tags($postID, $post_tags);
@@ -570,7 +567,22 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
         // set subgenres if selected
          if (($subgenre_mode=='1') && (!empty($grouping))) {
-           echo " subgenres: " . $grouping;
+
+
+
+           $subgenres_array = explode(',', $grouping); //split string into array seperated by ', '
+             foreach($subgenres_array as $grouping_id) //loop over and extract values
+             {
+               echo "<br /> subgenres: " . $grouping_id;
+             }
+
+
+           // see if subgenre exists
+
+           // add if not
+
+           // set subgenre to post
+
          }
 
       }
