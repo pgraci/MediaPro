@@ -730,12 +730,12 @@ function testcommentsforvalid($comment) {
     }
 }
 
-add_action('admin_enqueue_scripts', 'my_admin_scripts');
+add_action('admin_enqueue_scripts', 'mediapro_admin_scripts');
 
-function my_admin_scripts() {
+function mediapro_admin_scripts() {
     if (isset($_GET['page']) && $_GET['page'] == 'media-pro') {
         wp_enqueue_media();
-        wp_register_script('media-pro-admin-js', WP_PLUGIN_URL.'/mp3-to-post/my-admin.js', array('jquery'));
+        wp_register_script('media-pro-admin-js', WP_PLUGIN_URL.'/MediaPro/media-pro-admin.js', array('jquery'));
         wp_enqueue_script('media-pro-admin-js');
     }
 }
