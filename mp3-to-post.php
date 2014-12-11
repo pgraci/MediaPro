@@ -577,10 +577,21 @@ function do_the_posting($title, $artist, $album, $category, $post_thumbnail_id, 
       add_post_meta($postID, "auto_play", $autoplay_mode);
 
 
-      add_post_meta($postID, "album", $album);
-      add_post_meta($postID, "bpm", $bpm);
-      add_post_meta($postID, "composer", $composer);
-      add_post_meta($postID, "isrc", $isrc);
+      if(!empty($album)){
+        add_post_meta($postID, "album", $album);
+      }
+
+      if(!empty($bpm)){
+        add_post_meta($postID, "bpm", $bpm);
+      }
+
+      if(!empty($composer)){
+        add_post_meta($postID, "composer", $composer);
+      }
+
+      if(!empty($isrc)){
+        add_post_meta($postID, "isrc", $isrc);
+      }
 
       // If the artist is set try to find matching artist page
       if(!empty($artist)){
