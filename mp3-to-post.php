@@ -494,6 +494,9 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
     // set post type
     set_post_type($postID, $post_type);
 
+    echo ":::: tags: " . $post_tags;
+
+
     if(!empty($post_tags)){
       //set post tags
       wp_set_post_tags($postID, $post_tags);
