@@ -292,7 +292,7 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
               $grouping = $ThisFileInfo['tags']['id3v2']['content_group_description'][0];
 
-              echo "****" . $grouping . '****';
+              echo "****[" . $grouping . ']****';
 
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
               $isrc = $ThisFileInfo['tags_html']['id3v2']['isrc'][0];
