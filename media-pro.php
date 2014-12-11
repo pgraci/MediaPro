@@ -421,6 +421,7 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
                   'grouping' => $grouping,
                   'bpm' => $bpm,
                   'composer' => $composer,
+                  'isrc' => $isrc,
                 );
 
 
