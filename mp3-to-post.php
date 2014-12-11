@@ -406,6 +406,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                 $the_song_tags = array(
                   'title' => $title,
                   'artist' => $artist,
+                  'album' => $album,
                   'category' => $category,
                   'post_thumbnail_id' => $post_thumbnail_id,
                   'post_type' => $post_type,
@@ -414,6 +415,8 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'the_playlist_array' => $the_playlist_array,
                   'year' => $released_year,
                   'grouping' => $grouping,
+                  'bpm' => $bpm,
+                  'composer' => $composer,
                 );
 
               array_push($master_list, $the_song_tags);
@@ -438,7 +441,25 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
-              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode, $master_list[$i]['grouping']);
+              do_the_posting(
+                $master_list[$i]['title'],
+                $master_list[$i]['artist'],
+                $master_list[$i]['album'],
+                $master_list[$i]['category'],
+                $master_list[$i]['post_thumbnail_id'],
+                $master_list[$i]['post_type'],
+                $master_list[$i]['post_content'],
+                $master_list[$i]['post_tags'],
+                $the_playlist_array_final,
+                $autoplay_mode,
+                $date_mode,
+                $master_list[$i]['year'],
+                $subgenre_mode,
+                $master_list[$i]['grouping'],
+                $master_list[$i]['bpm'],
+                $master_list[$i]['composer'],
+                $master_list[$i]['isrc']
+                );
             }
 
           } else {
@@ -454,7 +475,25 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             // normalize lists of tags
 
             // post first song for now as the album
-            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[0]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[0]['year'], $subgenre_mode, $master_list[0]['grouping']);
+            do_the_posting(
+              $master_list[0]['title'],
+              $master_list[0]['artist'],
+              $master_list[0]['album'],
+              $master_list[0]['category'],
+              $master_list[0]['post_thumbnail_id'],
+              $master_list[0]['post_type'],
+              $master_list[0]['post_content'],
+              $master_list[0]['post_tags'],
+              $the_playlist_array_final,
+              $autoplay_mode,
+              $date_mode,
+              $master_list[0]['year'],
+              $subgenre_mode,
+              $master_list[0]['grouping'],
+              $master_list[0]['bpm'],
+              $master_list[0]['composer'],
+              $master_list[0]['isrc']
+              );
 
           }
 
@@ -467,7 +506,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $post_content, $post_tags, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $subgenre_mode, $grouping) {
+function do_the_posting($title, $artist, $album, $category, $post_thumbnail_id, $post_type, $post_content, $post_tags, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $subgenre_mode, $grouping, $bpm, $composer, $isrc) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
@@ -533,7 +572,48 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
 
     if ($post_type == 'songs') {
-      add_remix_playlist_artist($postID, $the_playlist_array_final, $artist, $autoplay_mode);
+
+      add_post_meta($postID, "playlist", $the_playlist_array_final);
+      add_post_meta($postID, "auto_play", $autoplay_mode);
+
+
+      add_post_meta($postID, "album", $album);
+      add_post_meta($postID, "bpm", $bpm);
+      add_post_meta($postID, "composer", $composer);
+      add_post_meta($postID, "isrc", $isrc);
+
+      // If the artist is set try to find matching artist page
+      if(!empty($artist)){
+
+          $searchArgs = array(
+            'post_title_like' => $artist,
+            'post_type' => 'artists',
+          );
+
+          $artistSearchResult = new WP_Query($searchArgs);
+
+          if ($artistSearchResult->post_count == 0) {
+              // create new artist
+              $artist_page_post = array(
+                'post_title' => $artist,
+                'post_content' => "bio coming soon...",
+                'post_author' => 1,
+                'post_name' => $artist,
+              );
+              // Insert the post!!
+              $artist_page_id = wp_insert_post($artist_page_post);
+
+              // set post type
+              set_post_type($artist_page_id, "artists");
+
+          } else {
+              // get artist id
+              $artist_page_id = $artistSearchResult->post->ID;
+          }
+
+          // update song post with artist id
+          add_post_meta($postID, "artist_nameaa", $artist_page_id);
+      }
 
       if(!empty($category)){
         // LOOKUP TAXONOMY TERM FOR GENRE
@@ -601,15 +681,6 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
                wp_set_post_terms( $postID, $subgenre_array, 'songs_cat', true );
              }
 
-
-
-
-           // see if subgenre exists
-
-           // add if not
-
-           // set subgenre to post
-
          }
 
       }
@@ -640,48 +711,6 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
 }
 
-
-function add_remix_playlist_artist($postID, $the_playlist_array_final, $artist, $autoplay_mode) {
-
-  add_post_meta($postID, "playlist", $the_playlist_array_final);
-  add_post_meta($postID, "auto_play", $autoplay_mode);
-
-
-  // If the artist is set try to find matching artist page
-  // create new artist page if option chosen
-  if(!empty($artist)){
-
-      $searchArgs = array(
-        'post_title_like' => $artist,
-        'post_type' => 'artists',
-      );
-
-      $artistSearchResult = new WP_Query($searchArgs);
-
-      if ($artistSearchResult->post_count == 0) {
-          // create new artist
-          $artist_page_post = array(
-            'post_title' => $artist,
-            'post_content' => "bio coming soon...",
-            'post_author' => 1,
-            'post_name' => $artist,
-          );
-          // Insert the post!!
-          $artist_page_id = wp_insert_post($artist_page_post);
-
-          // set post type
-          set_post_type($artist_page_id, "artists");
-
-      } else {
-          // get artist id
-          $artist_page_id = $artistSearchResult->post->ID;
-      }
-
-      // update song post with artist id
-      add_post_meta($postID, "artist_nameaa", $artist_page_id);
-  }
-
-}
 
 
 function testcommentsforvalid($comment) {
