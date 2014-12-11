@@ -438,7 +438,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
-              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode$master_list[$i]['grouping']);
+              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode, $master_list[$i]['grouping']);
             }
 
           } else {
@@ -524,18 +524,11 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
       // Reset post status to draft
       $my_post_status2 = array(
           'ID'           => $postID,
-          'post_status2' => 'draft',
+          'post_status' => 'draft',
       );
       wp_update_post( $my_post_status2 );
 
     }
-
-
-    // wp_set_post_terms( $post_id, $terms, $taxonomy )
-
-    // $taxonomy = 'songs_cat';
-    // $terms = $category
-
 
 
 
