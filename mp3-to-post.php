@@ -589,6 +589,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
                    array(
                      'description'=> $grouping_id,
                      'slug' => sanitize_title($grouping_id),
+                     'parent'=> $genre_term_ID,
                    )
                  );
 
