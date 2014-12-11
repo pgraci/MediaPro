@@ -98,6 +98,7 @@ function song_admin() {
     $selected_description_mode = $_POST['description_mode'];
     $selected_tags_mode = $_POST['tags_mode'];
     $selected_autoplay_mode = $_POST['autoplay_mode'];
+    $selected_subgenre_mode = $_POST['subgenre_mode'];
 
     ?>
 
@@ -157,6 +158,14 @@ function song_admin() {
             <option value="3" <?php if ($selected_tags_mode=='3') {echo "selected";} ?>>from Description</option>
           </select>
         </fieldset>
+
+        <fieldset>
+          <label class="mode_label" for="subgenre_mode">Subgenre</label>
+          <select id="subgenre_mode" name="subgenre_mode">
+            <option value="0">Off</option>
+            <option value="1" <?php if ($selected_subgenre_mode=='1') {echo "selected";} ?>>from Grouping</option>
+          </select>
+        </fieldset>
       </div>
 
       <div class="audio-to-song-post-form">
@@ -189,7 +198,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode, $selected_description_mode, $selected_tags_mode, $selected_artist_mode));
+      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode, $selected_description_mode, $selected_tags_mode, $selected_artist_mode, $selected_subgenre_mode));
 
       $arrlength = count($songs_array);
 
@@ -235,7 +244,7 @@ add_filter('posts_where', 'title_like_posts_where', 10, 2);
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode, $description_mode, $tags_mode, $artist_mode) {
+function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode, $description_mode, $tags_mode, $artist_mode, $subgenre_mode) {
   $messages = array();
 
   // check of there are files to process
@@ -401,6 +410,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'post_tags' => $post_tags,
                   'the_playlist_array' => $the_playlist_array,
                   'year' => $released_year,
+                  'grouping' => $grouping,
                 );
 
               array_push($master_list, $the_song_tags);
@@ -425,7 +435,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               $the_playlist_array_final = array();
               array_push($the_playlist_array_final, $master_list[$i]['the_playlist_array']);
 
-              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+              do_the_posting($master_list[$i]['title'], $master_list[$i]['artist'], $master_list[$i]['category'], $master_list[$i]['post_thumbnail_id'], $master_list[$i]['post_type'], $master_list[$i]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode);
             }
 
           } else {
@@ -441,7 +451,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             // normalize lists of tags
 
             // post first song for now as the album
-            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year']);
+            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode);
 
           }
 
@@ -454,7 +464,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
 
 
 
-function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $post_content, $post_tags, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $created_date) {
+function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $post_content, $post_tags, $the_playlist_array_final, $autoplay_mode, $date_mode, $released_year, $subgenre_mode) {
 
   // check if post exists by search for one with the same title
   // filtering by song name not working
