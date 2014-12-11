@@ -568,13 +568,39 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
         // set subgenres if selected
          if (($subgenre_mode=='1') && (!empty($grouping))) {
 
-
-
            $subgenres_array = explode(',', $grouping); //split string into array seperated by ', '
              foreach($subgenres_array as $grouping_id) //loop over and extract values
              {
-               echo "<br /> subgenres: " . $grouping_id;
+
+               $subgenre_term = term_exists( $grouping_id, 'songs_cat', $genre_term_ID );
+               $subgenre_term_ID = $subgenre_term['term_id']; // get numeric term id
+
+               // if a category exists
+               if($subgenre_term_ID) {
+                 $subgenre_array = array($subgenre_term_ID);
+               }
+               // if it doesn't exist then create a new category
+               // TODO - make sure that its a word and not an number in parens ie (16)
+               else {
+                 //$new_genre_ID = wp_create_category($category);
+                 wp_insert_term(
+                   $category, // the term
+                   'songs_cat', // the taxonomy
+                   array(
+                     'description'=> $grouping_id,
+                     'slug' => sanitize_title($grouping_id),
+                   )
+                 );
+
+                 $new_subgenre_term = term_exists( $grouping_id, 'songs_cat', $genre_term_ID );
+                 $subgenre_term_ID = $new_subgenre_term['term_id']; // get numeric term id
+
+                 $subgenre_array = array($subgenre_term_ID);
+               }
+               wp_set_post_terms( $postID, $subgenre_array, 'songs_cat', true );
              }
+
+
 
 
            // see if subgenre exists
