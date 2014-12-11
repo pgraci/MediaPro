@@ -397,7 +397,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
               } elseif ($tags_mode == '1') {
                 $post_tags = $grouping;
               } elseif ($tags_mode == '2') {
-                $post_tags = $comments;
+                $post_tags = $comment;
               } elseif ($tags_mode == '3') {
                 $post_tags = $description;
               }
