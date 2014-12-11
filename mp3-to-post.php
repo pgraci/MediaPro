@@ -584,7 +584,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
                else {
                  //$new_genre_ID = wp_create_category($category);
                  wp_insert_term(
-                   $category, // the term
+                   $grouping_id, // the term
                    'songs_cat', // the taxonomy
                    array(
                      'description'=> $grouping_id,
