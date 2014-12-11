@@ -1,20 +1,24 @@
-=== MP3 to Post ===
-Contributors: paulsheldrake
-Tags: mp3, podcasting, id3, podcast, podcaster, audio, music, spokenword
-Requires at least: 3.0
-Tested up to: 4.0
-Stable tag: 1.2.3
+=== MediaPro ===
+Contributors: philgraci
+Tags: mp3, audio, music, spokenword
+Requires at least: 3.5
+Tested up to: 4.0.1
+Stable tag: 1.0
 License: GPLv3
 
-Creates posts using MP3 ID3 information.
+Creates posts using Media Library ID3 information.
 
 == Description ==
 
-This plugin creates a folder that you can STFP or SSH MP3 files in to and then 
-scans the folder to create the posts from the MP3 ID3 information.  
+This plugin allows you to upload or select songs from your Media Library.
 
-The posts use the ID3 title and comments information to create the title and post
-content.  
+You can then create multiple posts or one post with a playlist.
+
+The posts are generated from the song's ID3 information.
+
+MP3 and M4A files are supported, as well as iTunes purchases.
+
+Many different ID3 tags are available, and you can customize how you want to import.
 
 When the posts are created they are automatically set to Draft so you can review
 the information and set publish dates.
@@ -24,43 +28,25 @@ the information and set publish dates.
 
 1. Upload the plugin directory to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Upload mp3 files to /wp-content/uploads/mp3-to-post
-4. Go to the plugin page(under the Settings tab) and start creating posts.
+3. Go to the plugin page and start creating posts.
 
 == Frequently Asked Questions ==
 
-= How can I look at/edit ID3 information =
+= ID3 Version =
 
-You can use iTunes to edit ID3 information.   If you right click on the MP3 file there should be an option for 'Get Info' in the menu.   Clicking that open a dialogue where you can set the information.   Something to note is that setting the information in iTunes doesn't always set the ID3v1 and ID3v2 tags, it often just sets the v1 tags.  
+Currently we only retrieve ID3v2 tags.
 
-If you go to download.com and search for 'ID3 Editor' you will find a variety of free options if iTunes isn't working for you.
+= ID3 Tag names =
 
-In Windows you can also right click the mp3 file and select Properties.  In the Summary tab there is an option to enter ID3 information.
+All fields referenced are based on how iTunes uses the field name.  For instance, iTunes has a field called 'Grouping'.  This is actually stored inside ID3 tag 'content_group_description'.  MediaPro refers to this as Grouping.
+
+You may edit your tags in any editor, however it is recommended to check in iTunes to ensure that fields are being stored as expected.
 
 = Any other questions =
 
-Please feel free to email me.  paul.sheldrake@gmail.com
+Please feel free to email me.  phil@triagency.com
 
 == Changelog ==
 
-= 1.2.0 =
-* Check plugin works for WordPress version 4.0.  Creating POT file for translators.
-
-= 1.1.0 =
-* Added the ability to set categories on posts.  When you set the genre in the ID3 info that will be used as the category.
-
-= 1.0.3.2 =
-* Fixed version number
-
-= 1.0.3 =
-* Added a fix to make the mp3-to-post work with other plugins that use the GetID3 library.  Thanks to citizenkeith for following up on this.
-
-= 1.0.2 =
-* Updated the read me, added slightly more useful error messaging and fixed a problem with SVN using the wrong version
-
-= 1.0.1 =
-* Now show more information about the files in the folder before they are uploaded
-
 = 1.0 =
 * Initial commit
-

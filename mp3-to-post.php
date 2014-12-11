@@ -1,15 +1,12 @@
 <?php
-
-
 /*
-  Plugin Name: Audio to Song Post
-  Plugin URI: http://www.triagency.com/MAKEAURL/
+  Plugin Name: MediaPro
+  Plugin URI: http://www.triagency.com/
   Description: Creates posts using ID3 information in audio file from Media Library.
   Author: Phil Graci
-  Version: 1.2.3
+  Version: 1.0
   Author URI: http://www.triagency.com
  */
-
 
 /**
  * Variables, store them in the options array to grab as necessary
@@ -20,24 +17,19 @@ $uploadsDetails = wp_upload_dir();
 $folderPath = $uploadsDetails['basedir'];
 $urlPath = $uploadsDetails['baseurl'];
 
-$SongToPostOptions = array(
+$MediaProOptions = array(
   'folder_path' => $folderPath,
   'base_url_path' => $urlPath,
 );
 
-update_option('audio-to-song-post', serialize($SongToPostOptions));
+update_option('media-pro', serialize($MediaProOptions));
 
-
-/* create the menu item and link to to an admin function */
-// function song_admin_actions() {
-//   add_options_page(__('Audio to Song Post','audio-to-song-post'), __('Audio to Song Post','audio-to-song-post'), 1, "audio-to-song-post", "song_admin");
-// }
 
 /* add the menu item */
 add_action('admin_menu', 'song_admin_actions');
 
 function song_admin_actions(){
-    add_menu_page( 'AudioPost', 'AudioPost', 'manage_options', 'audio-to-song-post', 'song_admin', 'dashicons-playlist-audio', 9 );
+    add_menu_page( 'MediaPro', 'MediaPro', 'manage_options', 'media-pro', 'song_admin', 'dashicons-playlist-audio', 9 );
 }
 
 /**
@@ -46,8 +38,7 @@ function song_admin_actions(){
  */
 function song_admin() {
   /**
-   * Add the ID3 library.  Adding it here so it's only used as needed
-   * http://wordpress.org/support/topic/plugin-blubrry-powerpress-podcasting-plugin-conflict-with-audio-to-song-post-plugin?replies=1#post-2833002
+   * Add the ID3 library.
    */
   require_once('getid3/getid3.php');
 
@@ -62,14 +53,14 @@ function song_admin() {
       }
 
     .messages,
-    .audio-to-song-post-header,
-    .audio-to-song-post-form {
+    .media-pro-header,
+    .media-pro-form {
       background-color: #fff;
       padding: 10px;
       margin: 10px;
     }
 
-    .audio-to-song-post-form h1 {
+    .media-pro-form h1 {
       font-size: 110%;
     }
 
@@ -79,8 +70,8 @@ function song_admin() {
   </style>
 
   <div class="wrap">
-    <div class="audio-to-song-post-header">
-      <h2>AudioPost</h2>
+    <div class="media-pro-header">
+      <h2>MediaPro</h2>
 
       <div class="uploader">
         <input id="upload_image_button" class="button-primary" type="button" value="Select Songs" />
@@ -88,7 +79,7 @@ function song_admin() {
     </div >
     <?php
     // load our variables in to an array
-    $SongToPostOptions = unserialize(get_option('audio-to-song-post'));
+    $MediaProOptions = unserialize(get_option('media-pro'));
 
     $selected_type_of_post = $_POST['type_of_post'];
     $selected_post_mode = $_POST['post_mode'];
@@ -103,7 +94,7 @@ function song_admin() {
     ?>
 
       <form method="post" action="">
-      <div class="audio-to-song-post-form">
+      <div class="media-pro-form">
         <h1>Post Options</h1>
         <fieldset>
           <label class="mode_label" for="type_of_post">Post Type</label>
@@ -161,7 +152,7 @@ function song_admin() {
 
       </div>
 
-      <div class="audio-to-song-post-form">
+      <div class="media-pro-form">
         <h1>Song Options</h1>
 
         <fieldset>
@@ -188,8 +179,8 @@ function song_admin() {
           </select>
         </fieldset>
       </div>
-      <div class="audio-to-song-post-form">
-        <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','audio-to-song-post') ?>" />
+      <div class="media-pro-form">
+        <input id="create_posts" name="create_posts" type="submit" class="button-primary" style="display: none;" value="<?php _e('Create Posts','media-pro') ?>" />
         <input id="posts_ids" name="posts_ids" type="hidden" size="36" value="" />
       </div>
       </form>
@@ -199,7 +190,7 @@ function song_admin() {
     <?php
     // create post!
     if (isset($_POST['create_posts'])) {
-      $songs_array = (audio_to_song_post('all', $_POST['posts_ids'], $SongToPostOptions['folder_path'], $SongToPostOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode, $selected_description_mode, $selected_tags_mode, $selected_artist_mode, $selected_subgenre_mode));
+      $songs_array = (audio_to_song_post($_POST['posts_ids'], $MediaProOptions['folder_path'], $MediaProOptions['base_url_path'], $selected_type_of_post, $selected_post_mode, $selected_autoplay_mode, $selected_date_mode, $selected_title_mode, $selected_description_mode, $selected_tags_mode, $selected_artist_mode, $selected_subgenre_mode));
 
       $arrlength = count($songs_array);
 
@@ -245,12 +236,12 @@ add_filter('posts_where', 'title_like_posts_where', 10, 2);
  * @return $array
  *   Will provide an array of messages
  */
-function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode, $description_mode, $tags_mode, $artist_mode, $subgenre_mode) {
+function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $posting_mode, $autoplay_mode, $date_mode, $title_mode, $description_mode, $tags_mode, $artist_mode, $subgenre_mode) {
   $messages = array();
 
   // check of there are files to process
   if(count($list_of_ids) == 0){
-    array_push($messages, _e('There are no files to process', 'audio-to-song-post'));
+    array_push($messages, _e('There are no files to process', 'media-pro'));
     return $messages;
   } else {
 
@@ -419,16 +410,15 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
                   'composer' => $composer,
                 );
 
-              array_push($master_list, $the_song_tags);
 
 
               // check if we have a title
               // proceed to make post if this works
-              // if ($title){
-              //     do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_type, $description, $the_playlist_array_final);
-              // } else {
-              //   array_push($messages, _e('Title not set in the ID3 information.', 'audio-to-song-post'));
-              // }
+               if ($title){
+                   array_push($master_list, $the_song_tags);
+               } else {
+                 array_push($messages, _e('Title not set in the ID3 information for - ' . $title, 'media-pro'));
+               }
 
         }
 
@@ -715,9 +705,9 @@ function do_the_posting($title, $artist, $album, $category, $post_thumbnail_id, 
 
     }
 
-    array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'audio-to-song-post'));
+    array_push($messages, _e('<p>' . $post_type . ' created: '  . $title . '</p>', 'media-pro'));
   } else {
-    array_push($messages, _e('<p>' . $post_type . ' already exists: ' . $title . '</p>', 'audio-to-song-post'));
+    array_push($messages, _e('<p>' . $post_type . ' already exists: ' . $title . '</p>', 'media-pro'));
   }
 
 }
@@ -743,10 +733,10 @@ function testcommentsforvalid($comment) {
 add_action('admin_enqueue_scripts', 'my_admin_scripts');
 
 function my_admin_scripts() {
-    if (isset($_GET['page']) && $_GET['page'] == 'audio-to-song-post') {
+    if (isset($_GET['page']) && $_GET['page'] == 'media-pro') {
         wp_enqueue_media();
-        wp_register_script('my-admin-js', WP_PLUGIN_URL.'/mp3-to-post/my-admin.js', array('jquery'));
-        wp_enqueue_script('my-admin-js');
+        wp_register_script('media-pro-admin-js', WP_PLUGIN_URL.'/mp3-to-post/my-admin.js', array('jquery'));
+        wp_enqueue_script('media-pro-admin-js');
     }
 }
 ?>
