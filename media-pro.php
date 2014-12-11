@@ -291,6 +291,9 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
               $created_date = $ThisFileInfo['tags_html']['id3v2']['creation_date'][0];
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
               $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
+
+              echo "****" . $grouping . '****';
+
               $encoded_by = $ThisFileInfo['tags_html']['id3v2']['encoded_by'][0];
               $isrc = $ThisFileInfo['tags_html']['id3v2']['isrc'][0];
 
