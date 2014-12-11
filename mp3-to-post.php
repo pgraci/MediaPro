@@ -454,7 +454,7 @@ function audio_to_song_post($limit = 'all', $list_of_ids, $folderPath, $urlPath,
             // normalize lists of tags
 
             // post first song for now as the album
-            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[$i]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[$i]['year'], $subgenre_mode, $master_list[$i]['grouping']);
+            do_the_posting($master_list[0]['title'], $master_list[0]['artist'], $master_list[0]['category'], $master_list[0]['post_thumbnail_id'], $master_list[0]['post_type'], $master_list[0]['post_content'], $master_list[0]['post_tags'], $the_playlist_array_final, $autoplay_mode, $date_mode, $master_list[0]['year'], $subgenre_mode, $master_list[0]['grouping']);
 
           }
 
@@ -567,7 +567,7 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
 
         // set subgenres if selected
          if (($subgenre_mode=='1') && (!empty($grouping))) {
-           echo " subgenres***** ";
+           echo " subgenres: " . $grouping;
          }
 
       }
