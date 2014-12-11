@@ -566,9 +566,9 @@ function do_the_posting($title, $artist, $category, $post_thumbnail_id, $post_ty
         wp_set_post_terms( $postID, $genre_array, 'songs_cat' );
 
         // set subgenres if selected
-        // if (($subgenre_mode=='1') && (!empty($grouping))) {
-        //   echo " subgenres***** ";
-        // }
+         if (($subgenre_mode=='1') && (!empty($grouping))) {
+           echo " subgenres***** ";
+         }
 
       }
 
