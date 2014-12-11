@@ -290,7 +290,7 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
               $released_year = $ThisFileInfo['tags_html']['id3v2']['year'][0];
               $created_date = $ThisFileInfo['tags_html']['id3v2']['creation_date'][0];
               $composer = $ThisFileInfo['tags_html']['id3v2']['composer'][0];
-              $grouping = $ThisFileInfo['tags_html']['id3v2']['content_group_description'][0];
+              $grouping = $ThisFileInfo['tags']['id3v2']['content_group_description'][0];
 
               echo "****" . $grouping . '****';
 
