@@ -332,7 +332,7 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
                     $playlist_ids = $list_of_ids;
                   }
 
-                  $description = "<p>[playlist ids=" . $playlist_ids . "]</p>" . $description;
+                  $post_playlist = "<p>[playlist ids=" . $playlist_ids . "]</p>";
 
               } else {
                 $the_playlist_array = array(
@@ -384,6 +384,11 @@ function audio_to_song_post($list_of_ids, $folderPath, $urlPath, $post_type, $po
                   $post_content = $post_content . '<p>ISRC: ' . $isrc . '</p>';
                 }
 
+              }
+
+              if ($post_type == 'post') {
+                // check to see if we need to prepend playlist to post_content
+                $post_content = $post_playlist . $post_content;
               }
 
 
