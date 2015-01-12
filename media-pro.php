@@ -1,11 +1,11 @@
 <?php
 /*
   Plugin Name: MediaPro
-  Plugin URI: http://www.triagency.com/
-  Description: Creates posts using ID3 information in audio file from Media Library.
+  Plugin URI: http://philgraci.com/work/mediapro
+  Description: Creates posts using ID3 information in MP3 file from Media Library.
   Author: Phil Graci
-  Version: 1.0
-  Author URI: http://www.triagency.com
+  Version: 1.0.1
+  Author URI: http://philgraci.com
  */
 
 /**
@@ -99,8 +99,8 @@ function song_admin() {
         <fieldset>
           <label class="mode_label" for="type_of_post">Post Type</label>
           <select id="type_of_post" name="type_of_post">
-            <option value="songs">REMIX Song</option>
-            <option value="post" <?php if ($selected_type_of_post=='post') {echo "selected";} ?>>Blog Post</option>
+            <option value="post">Blog Post</option>
+            <option value="songs" <?php if ($selected_type_of_post=='songs') {echo "selected";} ?>>REMIX Song</option>
           </select>
         </fieldset>
 
